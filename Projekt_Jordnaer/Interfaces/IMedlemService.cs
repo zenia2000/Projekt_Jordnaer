@@ -1,4 +1,5 @@
 ﻿using Projekt_Jordnaer.Models;
+using System.Threading.Tasks;
 
 namespace Projekt_Jordnaer.Interfaces
 {
@@ -17,11 +18,12 @@ namespace Projekt_Jordnaer.Interfaces
         Task<bool> CreateMemberAsync(Medlem medlem);
 
         //Slet medlem fra db
+        Task<Medlem> DeleteMemberAsync(int memberID);
 
         //Opdater medlem
 
-        //Hent alle medlemmer i db med navn
-
+        //Hent alle medlemmer i db ud fra navn
+        Task<List<Medlem>> GetMembersByNameAsync(string name);
 
 
 
