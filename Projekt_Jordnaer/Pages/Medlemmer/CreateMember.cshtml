@@ -1,7 +1,7 @@
 ﻿@page
 @model Projekt_Jordnaer.Pages.Medlemmer.CreateMemberModel
 @{
-    ViewData["Title"] = "Tilføj medlem";
+    ViewData["Title"] = "Tilføj medlem. Drop down menu certifikat, hak af admin";
 }
 
 <h1>Tilføj medlem</h1>
@@ -12,23 +12,31 @@
             <div class="form-group">
                 <label asp-for="@Model.Medlem.MemberID" class="control-label"></label>
                 <input asp-for="@Model.Medlem.MemberID" class="form-control" />
-
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Medlem.Name" class="control-label"></label>
                 <input asp-for="@Model.Medlem.Name" class="form-control" />
-
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Medlem.Address" class="control-label"></label>
                 <input asp-for="@Model.Medlem.Address" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="@Model.Medlem.Name" class="control-label"></label>
-                <input asp-for="@Model.Medlem.Name" class="form-control" />
+                <label asp-for="@Model.Medlem.Email" class="control-label"></label>
+                <input asp-for="@Model.Medlem.Email" class="form-control" />
             </div>
-
-
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.PhoneNr" class="control-label"></label>
+                <input asp-for="@Model.Medlem.PhoneNr" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.Certificate" class="control-label"></label> 
+                <input asp-for="@Model.Medlem.Certificate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.Admin" class="control-label"></label>
+                <input asp-for="@Model.Medlem.Admin" class="form-control" />
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
