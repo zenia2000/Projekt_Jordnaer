@@ -25,5 +25,7 @@ namespace Projekt_Jordnaer.Interfaces
 
         //Hent alle medlemmer i db ud fra navn
         Task<List<Medlem>> GetMembersByNameAsync(string name);
+
+        //søg efter cert?
     }
 }
