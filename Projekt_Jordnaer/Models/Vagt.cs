@@ -6,7 +6,7 @@
         private string vagtName;
         private string vagtDescription;
         private DateTime vagtDuration;
-        private enum vagtType {Bager, Bagerføl };
+        private enum vagtType {Cafe, Bager, Cafeføl, Bagerføl };
 
         public string VagtId
         {
