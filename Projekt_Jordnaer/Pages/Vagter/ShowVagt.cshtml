@@ -1,4 +1,35 @@
 ﻿@page
 @model Projekt_Jordnaer.Pages.Vagter.ShowVagtModel
 @{
+    ViewData["Title"] = "Alle vagter";
 }
+
+<p>
+    <a asp-page="AddVagt">Lav ny vagt</a> 
+</p>
+
+<h2>VagtPlan:</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Reg Nr
+            </th>
+            <th>
+                Navn
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Tid
+            </th>
+
+        </tr>
+    </thead>
+</table>

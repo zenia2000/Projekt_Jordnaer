@@ -1,7 +1,12 @@
+using Projekt_Jordnaer.Interfaces;
+using Projekt_Jordnaer.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<IVagtService, VagtService>();
+
 
 var app = builder.Build();
 
