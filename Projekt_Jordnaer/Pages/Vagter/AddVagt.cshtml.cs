@@ -20,7 +20,11 @@ namespace Projekt_Jordnaer.Pages.Vagter
         public async Task<IActionResult> OnPostAsync()
         {
             await vService.CreateVagtAsync(Vagt);
-            return RedirectToPage("Index");
+            return RedirectToPage("ShowVagt");
+        }
+        public async Task<IActionResult> OnPostCancel()
+        {
+            return RedirectToPage("ShowVagt");
         }
     }
 }
