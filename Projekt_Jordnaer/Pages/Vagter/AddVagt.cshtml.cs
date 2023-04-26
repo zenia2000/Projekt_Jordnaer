@@ -8,6 +8,7 @@ namespace Projekt_Jordnaer.Pages.Vagter
 {
     public class AddVagtModel : PageModel
     {
+        [BindProperty]
         public Vagt Vagt { get; set; }
         private IVagtService vService;
         public AddVagtModel(IVagtService vagtService)

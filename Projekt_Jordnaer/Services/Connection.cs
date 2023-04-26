@@ -9,7 +9,7 @@
         {
             Configuration = configuration;
             connectionString = Configuration["ConnectionStrings:SarahConnection"];
-            connectionString = Configuration["ConnectionStrings:JulieConnection"];
+           // connectionString = Configuration["ConnectionStrings:JulieConnection"];
         }
 
     }

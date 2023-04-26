@@ -8,5 +8,9 @@ namespace Projekt_Jordnaer.Pages.Vagter
         public void OnGet()
         {
         }
+        public async Task<IActionResult> OnPostCancel()
+        {
+            return RedirectToPage("AddVagt");
+        }
     }
 }

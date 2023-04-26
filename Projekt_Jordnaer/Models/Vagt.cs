@@ -5,7 +5,8 @@
         private string vagtId; 
         private string vagtName;
         private string vagtDescription;
-        private DateTime vagtDuration;
+        private DateTime vagtStart;
+        private DateTime vagtEnd;
         private enum vagtType {Cafe, Bager, Cafeføl, Bagerføl };
 
         public string VagtId
@@ -26,31 +27,40 @@
             set { vagtDescription = value; }
         }
 
-        public DateTime VagtDuration
+        public DateTime VagtStart
         {
-            get { return vagtDuration; }
-            set { vagtDuration = value; }
+            get { return vagtStart; }
+            set { vagtStart = value; }
         }
 
+        public DateTime VagtEnd
+        {
+            get { return vagtEnd; }
+            set { vagtEnd = value; }
+        }
         /*public Enum VagtType
         {
             get { return vagtType; }
             set { vagtType = value; }
         }
         */
-        public Vagt(string vagtId, string vagtName, string vagtDescription, DateTime vagtDuration/*, Enum vagtType*/)
+
+        public Vagt() 
+        { }
+        public Vagt(string vagtId, string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd/*, Enum vagtType*/)
         {
             VagtId = vagtId;
             VagtName = vagtName;
             VagtDescription = vagtDescription;
-            VagtDuration = vagtDuration;
-          //  VagtType = vagtType;
-            
+            VagtStart = vagtStart;
+            VagtEnd = vagtEnd;
+            //  VagtType = vagtType;
+
         }
 
         public override string ToString()
         {
-            return $"Id: {VagtId}, Navn: {VagtName}, Beskrivelse: {VagtDescription}, Varihed: {VagtDuration}, Type: ";
+            return $"Id: {VagtId}, Navn: {VagtName}, Beskrivelse: {VagtDescription}, Varihed: {VagtStart} til {VagtEnd}, Type: ";
         }
     }
 }

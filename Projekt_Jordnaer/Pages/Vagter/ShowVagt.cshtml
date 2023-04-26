@@ -4,6 +4,10 @@
     ViewData["Title"] = "Alle vagter";
 }
 
+<div class="form-group">
+    <input type="submit" value="Opret ny vagt" asp-page-handler="Cancel" class="btn btn-primary" />
+</div>
+
 <p>
     <a asp-page="AddVagt">Lav ny vagt</a> 
 </p>
@@ -21,6 +25,9 @@
                 Navn
             </th>
             <th>
+                Descibtion
+            </th>
+            <th>
                 Type
             </th>
             <th>
@@ -32,4 +39,24 @@
 
         </tr>
     </thead>
+    <tbody>
+      @*  
+        @if (Model.Vagts.Count() != 0)
+        {
+            @foreach (var item in Model.Vagts)
+            {
+                <tr>
+                    <td>
+                        @item.VagtID
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Describtion
+                    </td>
+                </tr>
+            }
+        }*@
+    </tbody>
 </table>

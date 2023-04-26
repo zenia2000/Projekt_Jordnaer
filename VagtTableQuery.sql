@@ -1,0 +1,7 @@
+﻿use [JordnærDB-Sarah]
+CREATE TABLE Vagt(
+VagtID VARCHAR(30) NOT NULL PRIMARY KEY,
+VagtName VARCHAR(50) NOT NULL,
+VagtDescription VARCHAR(100) NOT NULL,
+VagtStart DATE NOT NULL,
+VagtEnd DATE NOT NULL);
