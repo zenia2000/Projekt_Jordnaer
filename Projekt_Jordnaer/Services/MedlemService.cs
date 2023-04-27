@@ -9,8 +9,9 @@ namespace Projekt_Jordnaer.Services
     public class MedlemService : Connection, IMedlemService 
 	{
         private string queryString = "SELECT * from Medlem";
-        private string insertSql = "";
+        private string insertSql = "INSERT INTO Medlem Values (@MedlemID, @Navn, @Adresse, @Email, @Telefon nr., @Certifikat(er), @Admin)";
         private string deleteSql = "";
+        private string queryStringFromID = "";
 
         public MedlemService (IConfiguration configuration) : base(configuration)
         {
@@ -28,7 +29,7 @@ namespace Projekt_Jordnaer.Services
                     command.Parameters.AddWithValue("@Email", medlem.Email);
                     command.Parameters.AddWithValue("@Telefon nr.", medlem.PhoneNr);
                     command.Parameters.AddWithValue("@Certifikat(er)", medlem.Certificate);
-                    command.Parameters.AddWithValue("@Admin", medlem.Admin);
+                    command.Parameters.AddWithValue("@Admin", medlem.Admin); //anderledes hvis bool?
                     try
                     {
                         command.Connection.Open();
@@ -104,7 +105,43 @@ namespace Projekt_Jordnaer.Services
 
         public Task<Medlem> GetMemberFromIDAsync(int memberID)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand commmand = new SqlCommand(queryStringFromID, connection);
+                    commmand.Parameters.AddWithValue("@MedlemID", memberID);
+                    await commmand.Connection.OpenAsync();
+
+                    SqlDataReader reader = await commmand.ExecuteReaderAsync();
+                    if (await reader.ReadAsync())
+                    {
+                        int memberID = reader.GetInt32(0);
+                        String memberName = reader.GetString(1);
+                        String memberAddress = reader.GetString(2);
+                        String memberEmail = reader.GetString(3);
+                        String memberPhoneNr = reader.GetString(4);
+                        String memberCert = reader.GetString(5);
+                        //bool memberAdmin = reader. hvordan bool = true eller false
+
+                        Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
+                        return medlem;
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl " + ex.Message);
+                }
+                finally
+                {
+                   
+                }
+            }
+            return null;
         }
 
         public Task<List<Medlem>> GetMembersByNameAsync(string name)
