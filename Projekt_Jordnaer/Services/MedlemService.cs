@@ -37,7 +37,6 @@ namespace Projekt_Jordnaer.Services
                         {
                             return true;
                         }
-
                         return false;
                     }
                     catch (SqlException sqlex)
@@ -60,7 +59,42 @@ namespace Projekt_Jordnaer.Services
 
         public Task<List<Medlem>> GetAllMembersAsync()
         {
-            throw new NotImplementedException();
+            List<Medlem> medlemmer = new List<Medlem,>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(queryString, connection))
+                {
+                    try
+                    {
+                        await command.Connection.OpenAsync();
+                        SqlDataReader reader = await command.ExecuteReaderAsync();
+                        while (await reader.ReadAsync())
+                        {
+                            int memberID = reader.GetInt32(0);
+                            String memberName = reader.GetString(1);
+                            String memberAddress = reader.GetString(2);
+                            String memberEmail = reader.GetString(3);
+                            String memberPhoneNr = reader.GetString(4);
+                            String memberCert = reader.GetString(5);
+                            //bool memberAdmin = reader. hvordan bool = true eller false
+
+                            Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
+                            medlemmer.Add(medlem);
+                        }
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        Console.WriteLine("Database error " + sqlEx.Message);
+                        return null;
+                    }
+                    catch (Exception exp)
+                    {
+                        Console.WriteLine("Generel fejl" + exp.Message);
+                        return null;
+                    }
+                }
+            }
+            return medlemmer;
         }
 
         public Task<Medlem> GetMemberByNameAsync(string name)
