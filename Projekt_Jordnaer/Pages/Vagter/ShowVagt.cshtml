@@ -28,35 +28,37 @@
                 Descibtion
             </th>
             <th>
-                Type
+                Vagt Start
             </th>
             <th>
-                Status
+                Vagt Slut
             </th>
-            <th>
-                Tid
-            </th>
-
         </tr>
     </thead>
     <tbody>
-      @*  
+       
         @if (Model.Vagts.Count() != 0)
         {
             @foreach (var item in Model.Vagts)
             {
                 <tr>
                     <td>
-                        @item.VagtID
+                        @item.VagtId
                     </td>
                     <td>
-                        @item.Name
+                        @item.VagtName
                     </td>
                     <td>
-                        @item.Describtion
+                        @item.VagtDescription
+                    </td>
+                    <td>
+                        @item.VagtStart
+                    </td>
+                    <td>
+                        @item.VagtEnd
                     </td>
                 </tr>
             }
-        }*@
+        }
     </tbody>
 </table>

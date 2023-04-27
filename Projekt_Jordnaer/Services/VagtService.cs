@@ -53,8 +53,43 @@ namespace Projekt_Jordnaer.Services
 
         public async Task<List<Vagt>> GetAllVagtAsync()
         {
-            throw new NotImplementedException();
+            List<Vagt> vagter = new List<Vagt>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(queryString, connection))
+                {
+                    try
+                    {
+                        await command.Connection.OpenAsync();//aSynkront
+
+                        SqlDataReader reader = await command.ExecuteReaderAsync();//aSynkront
+
+                        while (await reader.ReadAsync())
+                        {
+                            String VagtID = reader.GetString(0);
+                            String VagtName = reader.GetString(1);
+                            String VagtDesc = reader.GetString(2);
+                            DateTime VagtStart = reader.GetDateTime(3);
+                            DateTime VagtEnd = reader.GetDateTime(4);
+                            Vagt vagt = new Vagt(VagtID, VagtName, VagtDesc, VagtStart, VagtEnd);
+                            vagter.Add(vagt);
+                        }
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        Console.WriteLine("Database error " + sqlEx.Message);
+                        return null;
+                    }
+                    catch (Exception exp)
+                    {
+                        Console.WriteLine("Generel fejl" + exp.Message);
+                        return null;
+                    }
+                }
+            }
+            return vagter;
         }
+
 
         public async Task<Vagt> GetVagtFromIdAsync(int id)
         {
@@ -65,5 +100,6 @@ namespace Projekt_Jordnaer.Services
         {
             throw new NotImplementedException();
         }
-    }
+    }    
 }
+

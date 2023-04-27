@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Projekt_Jordnaer.Interfaces;
 using Projekt_Jordnaer.Models;
 
-public namespace Projekt_Jordnaer.Services
+namespace Projekt_Jordnaer.Services
 {
-    public class MedlemService : Connection, IMedlemService //ingen connection + medlemservice
+    public class MedlemService : Connection, IMedlemService 
 	{
         private string queryString = "SELECT * from Medlem";
         private string insertSql = "";
@@ -53,26 +53,34 @@ public namespace Projekt_Jordnaer.Services
             return false;
         }
 
-        ////Hent alle medlemmer fra database
-        //Task<List<Medlem>> GetAllMembersAsync();
+        public Task<Medlem> DeleteMemberAsync(int memberID)
+        {
+            throw new NotImplementedException();
+        }
 
-        ////Hent medlem ud fra ID fra db
-        //Task<Medlem> GetMemberFromIDAsync(int memberID);
+        public Task<List<Medlem>> GetAllMembersAsync()
+        {
+            throw new NotImplementedException();
+        }
 
-        ////Hent medlem ud fra navn fra db
-        //Task<Medlem> GetMemberByNameAsync(string name);
+        public Task<Medlem> GetMemberByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
 
-        ////Tilføj medlem til db
-        //Task<bool> CreateMemberAsync(Medlem medlem);
+        public Task<Medlem> GetMemberFromIDAsync(int memberID)
+        {
+            throw new NotImplementedException();
+        }
 
-        ////Slet medlem fra db
-        //Task<Medlem> DeleteMemberAsync(int memberID);
+        public Task<List<Medlem>> GetMembersByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
 
-        ////Opdater medlem, find ud af hvordan alt opdateres??
-        //Task<bool> UpdateMemberAsync(Medlem medlem, int memberID);
-
-        ////Hent alle medlemmer i db ud fra navn
-        //Task<List<Medlem>> GetMembersByNameAsync(string name);
-
+        public Task<bool> UpdateMemberAsync(Medlem medlem, int memberID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
