@@ -11,7 +11,7 @@ namespace Projekt_Jordnaer.Services
         private string queryString = "SELECT * from Medlem";
         private string insertSql = "INSERT INTO Medlem Values (@MedlemID, @Navn, @Adresse, @Email, @Telefon nr., @Certifikat(er), @Admin)";
         private string deleteSql = "";
-        private string queryStringFromID = "";
+        private string queryStringFromID = "SELECT * from Medlem WHERE Medlem_Nr = @MedlemID";
 
         public MedlemService (IConfiguration configuration) : base(configuration)
         {
@@ -60,7 +60,7 @@ namespace Projekt_Jordnaer.Services
 
         public Task<List<Medlem>> GetAllMembersAsync()
         {
-            List<Medlem> medlemmer = new List<Medlem,>();
+            List<Medlem> medlemmer = new List<Medlem>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(queryString, connection))
