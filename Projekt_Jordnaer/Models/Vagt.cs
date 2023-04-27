@@ -2,14 +2,14 @@
 {
     public class Vagt
     {
-        private string vagtId; 
+        private int vagtId; 
         private string vagtName;
         private string vagtDescription;
         private DateTime vagtStart;
         private DateTime vagtEnd;
         private enum vagtType {Cafe, Bager, Cafeføl, Bagerføl };
 
-        public string VagtId
+        public int VagtId
         {
             get { return vagtId; }
             set { vagtId = value; }
@@ -47,7 +47,7 @@
 
         public Vagt() 
         { }
-        public Vagt(string vagtId, string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd/*, Enum vagtType*/)
+        public Vagt(int vagtId, string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd/*, Enum vagtType*/)
         {
             VagtId = vagtId;
             VagtName = vagtName;

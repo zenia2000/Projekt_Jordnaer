@@ -9,6 +9,7 @@ namespace Projekt_Jordnaer.Services
     {
         private string queryString = "SELECT * From Vagt";
         private string insertSql = "insert into Vagt Values(@ID, @Name, @Desc, @Start, @End)";
+        private string queryDelete = "delete from Vagt where VagtId=@ID";
 
         public VagtService(IConfiguration configuration) : base(configuration)
         {
@@ -48,7 +49,27 @@ namespace Projekt_Jordnaer.Services
 
         public async Task<Vagt> DeleteVagtAsync(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    Vagt vagtToReturn = await GetVagtFromIdAsync(id);
+                    SqlCommand command = new SqlCommand(queryDelete, connection);
+                    command.Parameters.AddWithValue("@ID", id);
+                    await command.Connection.OpenAsync();
+                    int noOfRows = await command.ExecuteNonQueryAsync();
+                    return vagtToReturn;
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Database error " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Generel fejl " + ex.Message);
+                }
+            }
+            return null;
         }
 
         public async Task<List<Vagt>> GetAllVagtAsync()
@@ -66,7 +87,7 @@ namespace Projekt_Jordnaer.Services
 
                         while (await reader.ReadAsync())
                         {
-                            String VagtID = reader.GetString(0);
+                            int VagtID = reader.GetInt32(0);
                             String VagtName = reader.GetString(1);
                             String VagtDesc = reader.GetString(2);
                             DateTime VagtStart = reader.GetDateTime(3);
