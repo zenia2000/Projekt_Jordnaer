@@ -19,7 +19,7 @@ namespace Projekt_Jordnaer.Pages.Vagter
         {
             Vagts = await _vService.GetAllVagtAsync(); 
         }
-        public async Task<IActionResult> OnPostCancel()
+        public async Task<IActionResult> OnPostOpret()
         {
             return RedirectToPage("AddVagt");
         }

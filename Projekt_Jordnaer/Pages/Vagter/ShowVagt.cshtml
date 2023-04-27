@@ -3,17 +3,22 @@
 @{
     ViewData["Title"] = "Alle vagter";
 }
+ <form method="post">
+    <div class="form-group">
+         <input type="submit" value="Opret ny vagt" asp-page-handler="Opret" class="btn btn-primary" style="background-color: green" />
+    </div>
+</form>
 
-<div class="form-group">
-    <input type="submit" value="Opret ny vagt" asp-page-handler="Cancel" class="btn btn-primary" />
-</div>
-
+@*
 <p>
     <a asp-page="AddVagt">Lav ny vagt</a> 
 </p>
+*@
+
 
 <h2>VagtPlan:</h2>
 
+<h3>Id skal kaldes b/bf/c/cf og et nummer. Bogstaver indikere typen af vagt lige nu</h3>
 
 <table class="table">
     <thead>
@@ -25,7 +30,7 @@
                 Navn
             </th>
             <th>
-                Descibtion
+                Description
             </th>
             <th>
                 Vagt Start
