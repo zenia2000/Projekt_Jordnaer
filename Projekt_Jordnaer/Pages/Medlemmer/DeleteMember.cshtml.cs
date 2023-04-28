@@ -26,11 +26,12 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
             MemberToDelete = await _mService.DeleteMemberAsync(memberID);
         }
 
-        public async Task<IActionResult> OnPostAsync(int memberID)
-        {
-            MemberToDelete = await _mService.UpdateMemberAsync(memberID);
-            return RedirectToPage("GetAllMembers");
-        }
+        //public async Task<IActionResult> OnPostAsync(int memberID)
+        //{
+        //    throw NotImplementedException();
+        ////    MemberToDelete = await _mService.UpdateMemberAsync(memberID);
+        ////    return RedirectToPage("GetAllMembers");
+        //}
 
         public async Task<IActionResult> OnPostCancel(int memberID)
         {

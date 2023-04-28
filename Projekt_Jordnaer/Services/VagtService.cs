@@ -93,7 +93,7 @@ namespace Projekt_Jordnaer.Services
                             String VagtDesc = reader.GetString(2);
                             DateTime VagtStart = reader.GetDateTime(3);
                             DateTime VagtEnd = reader.GetDateTime(4);
-                            Vagt vagt = new Vagt(VagtName, VagtDesc, VagtStart, VagtEnd);
+                            Vagt vagt = new Vagt(VagtID,VagtName, VagtDesc, VagtStart, VagtEnd);
                             vagter.Add(vagt);
                         }
                     }
@@ -133,7 +133,7 @@ namespace Projekt_Jordnaer.Services
                         String VagtDesc = reader.GetString(2);
                         DateTime VagtStart = reader.GetDateTime(3);
                         DateTime VagtEnd = reader.GetDateTime(4);
-                        Vagt vagt = new Vagt(VagtName, VagtDesc, VagtStart, VagtEnd);
+                        Vagt vagt = new Vagt(VagtID, VagtName, VagtDesc, VagtStart, VagtEnd);
                         return vagt;
                     }
                 }

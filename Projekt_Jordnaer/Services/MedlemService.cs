@@ -144,7 +144,7 @@ namespace Projekt_Jordnaer.Services
                         SqlDataReader reader = await commmand.ExecuteReaderAsync();
                         if (await reader.ReadAsync())
                         {
-                            int memberID = reader.GetInt32(0);
+                           // int memberID = reader.GetInt32(0);
                             String memberName = reader.GetString(1);
                             String memberAddress = reader.GetString(2);
                             String memberEmail = reader.GetString(3);
