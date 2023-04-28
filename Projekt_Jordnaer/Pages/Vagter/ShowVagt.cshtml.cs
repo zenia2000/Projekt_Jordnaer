@@ -23,9 +23,5 @@ namespace Projekt_Jordnaer.Pages.Vagter
         {
             return RedirectToPage("AddVagt");
         }
-        public async Task<IActionResult> OnPostFjern()
-        {
-            return RedirectToPage("DeleteVagt");
-        }
     }
 }

@@ -7,9 +7,11 @@ namespace Projekt_Jordnaer.Pages.Vagter
 {
     public class DeleteVagtModel : PageModel
     {
-        [BindProperty]
+        
         public Vagt Vagt { get; set; }
         private IVagtService vService;
+        public List<Vagt> Vagts { get; set; }
+        
         public DeleteVagtModel(IVagtService vagtService)
         {
             vService = vagtService;

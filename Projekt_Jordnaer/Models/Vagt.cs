@@ -2,13 +2,16 @@
 {
     public class Vagt
     {
-        private int vagtId; 
+        
+        private int vagtId;
         private string vagtName;
         private string vagtDescription;
         private DateTime vagtStart;
         private DateTime vagtEnd;
-        private enum vagtType {Cafe, Bager, Cafeføl, Bagerføl };
+        private enum vagtType { Cafe, Bager, Cafeføl, Bagerføl };
 
+
+        public static int count = 0;
         public int VagtId
         {
             get { return vagtId; }
@@ -38,6 +41,7 @@
             get { return vagtEnd; }
             set { vagtEnd = value; }
         }
+
         /*public Enum VagtType
         {
             get { return vagtType; }
@@ -47,8 +51,9 @@
 
         public Vagt() 
         { }
-        public Vagt(int vagtId, string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd/*, Enum vagtType*/)
+        public Vagt(string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd/*, Enum vagtType*/)
         {
+            vagtId = count++;
             VagtId = vagtId;
             VagtName = vagtName;
             VagtDescription = vagtDescription;

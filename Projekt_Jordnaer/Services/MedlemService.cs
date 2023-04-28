@@ -80,40 +80,23 @@ namespace Projekt_Jordnaer.Services
             //                    String memberCert = reader.GetString(5);
             //                    //bool memberAdmin = reader. hvordan bool = true eller false
 
-                            Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
-                            medlemmer.Add(medlem);
-                        }
-                    }
-                    catch (SqlException sqlEx)
-                    {
-                        Console.WriteLine("Database error " + sqlEx.Message);
-                        return null;
-                    }
-                    catch (Exception exp)
-                    {
-                        Console.WriteLine("Generel fejl" + exp.Message);
-                        return null;
-                    }
-                }
-            }
-            return medlem;
-            //                    Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
-            //                    medlemmer.Add(medlem);
-            //                }
-            //            }
-            //            catch (SqlException sqlEx)
-            //            {
-            //                Console.WriteLine("Database error " + sqlEx.Message);
-            //                return null;
-            //            }
-            //            catch (Exception exp)
-            //            {
-            //                Console.WriteLine("Generel fejl" + exp.Message);
-            //                return null;
+            //                Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
+            //                medlemmer.Add(medlem);
             //            }
             //        }
+            //        catch (SqlException sqlEx)
+            //        {
+            //            Console.WriteLine("Database error " + sqlEx.Message);
+            //            return null;
+            //        }
+            //        catch (Exception exp)
+            //        {
+            //            Console.WriteLine("Generel fejl" + exp.Message);
+            //            return null;
+            //        }
             //    }
-            //    return medlemmer;
+            //}
+            //return medlem;
         }
 
         public Task<Medlem> GetMemberByNameAsync(string name)
