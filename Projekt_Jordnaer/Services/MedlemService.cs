@@ -8,7 +8,7 @@ namespace Projekt_Jordnaer.Services
 {
     public class MedlemService : Connection, IMedlemService 
 	{
-        private string queryString = "SELECT * from Medlem";
+        private string queryString = "SELECT * from Medlemmer";
         private string insertSql = "INSERT INTO Medlem Values (@MedlemID, @Navn, @Adresse, @Email, @Telefon nr., @Certifikat(er), @Admin)";
         private string deleteSql = "";
         private string queryStringFromID = "SELECT * from Medlem WHERE Medlem_Nr = @MedlemID";
