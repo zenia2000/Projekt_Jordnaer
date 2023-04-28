@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
 using Projekt_Jordnaer.Interfaces;
 using Projekt_Jordnaer.Models;
+using System.Reflection.PortableExecutable;
 
 namespace Projekt_Jordnaer.Services
 {
@@ -12,6 +13,7 @@ namespace Projekt_Jordnaer.Services
         private string insertSql = "INSERT INTO Medlem Values (@MedlemID, @Navn, @Adresse, @Email, @Telefon nr., @Certifikat(er), @Admin)";
         private string deleteSql = "DELETE FROM Medlem WHERE Medlem_Nr = @MedlemID";
         private string queryStringFromID = "SELECT * from Medlem WHERE Medlem_Nr = @MedlemID";
+        private string updateSql = "UPDATE Medlem " + "" + "" ;
 
         public MedlemService (IConfiguration configuration) : base(configuration)
         {
@@ -29,7 +31,7 @@ namespace Projekt_Jordnaer.Services
                     command.Parameters.AddWithValue("@Email", medlem.Email);
                     command.Parameters.AddWithValue("@Telefon nr.", medlem.PhoneNr);
                     command.Parameters.AddWithValue("@Certifikat(er)", medlem.Certificate);
-                    command.Parameters.AddWithValue("@Admin", medlem.Admin); //anderledes hvis bool?
+                    //command.Parameters.AddWithValue("@Admin", medlem.Admin); //anderledes hvis bool?
                     try
                     {
                         command.Connection.Open();
@@ -86,25 +88,24 @@ namespace Projekt_Jordnaer.Services
 
         public async Task<List<Medlem>> GetAllMembersAsync()
         {
-            throw new NotImplementedException();
-            //    List<Medlem> medlemmer = new List<Medlem>();
-            //    using (SqlConnection connection = new SqlConnection(connectionString))
-            //    {
-            //        using (SqlCommand command = new SqlCommand(queryString, connection))
-            //        {
-            //            try
-            //            {
-            //                await command.Connection.OpenAsync();
-            //                SqlDataReader reader = await command.ExecuteReaderAsync();
-            //                while (await reader.ReadAsync())
-            //                {
-            //                    int memberID = reader.GetInt32(0);
-            //                    String memberName = reader.GetString(1);
-            //                    String memberAddress = reader.GetString(2);
-            //                    String memberEmail = reader.GetString(3);
-            //                    String memberPhoneNr = reader.GetString(4);
-            //                    String memberCert = reader.GetString(5);
-            //                    //bool memberAdmin = reader. hvordan bool = true eller false
+            List<Medlem> medlemmer = new List<Medlem>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(queryString, connection))
+                {
+                    try
+                    {
+                        await command.Connection.OpenAsync();
+                        SqlDataReader reader = await command.ExecuteReaderAsync();
+                        while (await reader.ReadAsync())
+                        {
+                            int memberID = reader.GetInt32(0);
+                            String memberName = reader.GetString(1);
+                            String memberAddress = reader.GetString(2);
+                            String memberEmail = reader.GetString(3);
+                            String memberPhoneNr = reader.GetString(4);
+                            String memberCert = reader.GetString(5);
+                            //bool memberAdmin = reader. hvordan bool = true eller false
 
                             Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
                             medlemmer.Add(medlem);
@@ -122,24 +123,7 @@ namespace Projekt_Jordnaer.Services
                     }
                 }
             }
-            return medlem;
-            //                    Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
-            //                    medlemmer.Add(medlem);
-            //                }
-            //            }
-            //            catch (SqlException sqlEx)
-            //            {
-            //                Console.WriteLine("Database error " + sqlEx.Message);
-            //                return null;
-            //            }
-            //            catch (Exception exp)
-            //            {
-            //                Console.WriteLine("Generel fejl" + exp.Message);
-            //                return null;
-            //            }
-            //        }
-            //    }
-            //    return medlemmer;
+            return medlemmer;
         }
 
         public async Task<Medlem> GetMemberByNameAsync(string name)
@@ -149,45 +133,44 @@ namespace Projekt_Jordnaer.Services
 
         public async Task<Medlem> GetMemberFromIDAsync(int memberID)
         {
-            throw new NotImplementedException();
-            //    using (SqlConnection connection = new SqlConnection(connectionString))
-            //    {
-            //        try
-            //        {
-            //            SqlCommand commmand = new SqlCommand(queryStringFromID, connection);
-            //            commmand.Parameters.AddWithValue("@MedlemID", memberID);
-            //            await commmand.Connection.OpenAsync();
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    try
+                    {
+                        SqlCommand commmand = new SqlCommand(queryStringFromID, connection);
+                        commmand.Parameters.AddWithValue("@MedlemID", memberID);
+                        await commmand.Connection.OpenAsync();
 
-            //            SqlDataReader reader = await commmand.ExecuteReaderAsync();
-            //            if (await reader.ReadAsync())
-            //            {
-            //                int memberID = reader.GetInt32(0);
-            //                String memberName = reader.GetString(1);
-            //                String memberAddress = reader.GetString(2);
-            //                String memberEmail = reader.GetString(3);
-            //                String memberPhoneNr = reader.GetString(4);
-            //                String memberCert = reader.GetString(5);
-            //                //bool memberAdmin = reader. hvordan bool = true eller false
+                        SqlDataReader reader = await commmand.ExecuteReaderAsync();
+                        if (await reader.ReadAsync())
+                        {
+                            int memberID = reader.GetInt32(0);
+                            String memberName = reader.GetString(1);
+                            String memberAddress = reader.GetString(2);
+                            String memberEmail = reader.GetString(3);
+                            String memberPhoneNr = reader.GetString(4);
+                            String memberCert = reader.GetString(5);
+                            //bool memberAdmin = reader. hvordan bool = true eller false
 
-            //                Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
-            //                return medlem;
-            //            }
-            //        }
-            //        catch (SqlException sqlEx)
-            //        {
-            //            Console.WriteLine("Database error " + sqlEx.Message);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Console.WriteLine("Generel fejl " + ex.Message);
-            //        }
-            //        finally
-            //        {
+                            Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
+                            return medlem;
+                        }
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        Console.WriteLine("Database error " + sqlEx.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Generel fejl " + ex.Message);
+                    }
+                    finally
+                    {
 
-            //        }
-            //    }
-            //    return null;
-        }
+                    }
+                }
+                return null;
+            }
 
         public async Task<List<Medlem>> GetMembersByNameAsync(string name)
         {
@@ -196,7 +179,38 @@ namespace Projekt_Jordnaer.Services
 
         public async Task<bool> UpdateMemberAsync(Medlem medlem, int memberID)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(updateSql, connection))
+                {
+                    command.Parameters.AddWithValue("@MedlemID", medlem.MemberID);
+                    command.Parameters.AddWithValue("@Navn", medlem.Name);
+                    command.Parameters.AddWithValue("@Adresse", medlem.Address);
+                    command.Parameters.AddWithValue("@Email", medlem.Email);
+                    command.Parameters.AddWithValue("@Telefon nr.", medlem.PhoneNr);
+                    command.Parameters.AddWithValue("@Certifikat(er)", medlem.Certificate);
+                    try
+                    {
+                        command.Connection.Open();
+                        int noOfRows = await command.ExecuteNonQueryAsync(); 
+                        if (noOfRows == 1)
+                        {
+                            return true;
+                        }
+                        return false;
+                    }
+                    catch (SqlException sqlex)
+                    {
+                        Console.WriteLine("Database error");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Generel error");
+                    }
+                }
+            }
+            return false;
         }
+    
     }
 }
