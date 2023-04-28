@@ -31,5 +31,10 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
             await mservice.CreateMemberAsync(Medlem);
             return RedirectToPage("GetAllMembers");
         }
+
+        public async Task<IActionResult> OnPostCancel()
+        {
+            return RedirectToPage("GetAllMembers");
+        }
     }
 }

@@ -22,9 +22,9 @@
 
         public string Certificate { get; set; } //bool??
 
-        public bool Admin { get; set; }
+        //public bool Admin { get; set; }
 
-        public Medlem(int memberID, string name, string address, string email, string phoneNr, string certificate, bool admin)
+        public Medlem(int memberID, string name, string address, string email, string phoneNr, string certificate) //, bool admin
         {
             _memberID = memberID;
             _name = name;
@@ -32,12 +32,12 @@
             _email = email;
             _phoneNr = phoneNr;
             _certificate = certificate;
-            _admin = admin;
+            //_admin = admin;
         }
 
         public override string ToString()
         {
-            return $"Medlem ID: {MemberID}, Navn: {Name}, Adresse: {Address}, Email: {Email}, Telefon nr.: {PhoneNr}, Certifikat(er): {Certificate}, Admin: {Admin}";
+            return $"Medlem ID: {MemberID}, Navn: {Name}, Adresse: {Address}, Email: {Email}, Telefon nr.: {PhoneNr}, Certifikat(er): {Certificate}"; //Admin: { Admin}
         }
     }
 }
