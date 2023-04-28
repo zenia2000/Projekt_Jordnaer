@@ -7,9 +7,9 @@ namespace Projekt_Jordnaer.Services
 {
     public class VagtService : Connection, IVagtService
     {
-        private string queryString = "SELECT * From Vagt";
-        private string insertSql = "insert into Vagt Values(@ID, @Name, @Desc, @Start, @End)";
-        private string queryDelete = "delete from Vagt where VagtId=@ID";
+        private string queryString = "SELECT * From Vagter";
+        private string insertSql = "insert into Vagter Values(@ID, @Name, @Desc, @Start, @End)";
+        private string queryDelete = "delete from Vagter where VagtId=@ID";
 
         public VagtService(IConfiguration configuration) : base(configuration)
         {
