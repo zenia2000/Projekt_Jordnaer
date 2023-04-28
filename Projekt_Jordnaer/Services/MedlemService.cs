@@ -95,7 +95,7 @@ namespace Projekt_Jordnaer.Services
                     }
                 }
             }
-            return medlemmer;
+            return medlem;
         }
 
         public Task<Medlem> GetMemberByNameAsync(string name)
