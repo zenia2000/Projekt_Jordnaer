@@ -8,9 +8,9 @@ namespace Projekt_Jordnaer.Services
 {
     public class MedlemService : Connection, IMedlemService 
 	{
-        private string queryString = "SELECT * from Medlemmer";
+        private string queryString = "SELECT * from Medlem";
         private string insertSql = "INSERT INTO Medlem Values (@MedlemID, @Navn, @Adresse, @Email, @Telefon nr., @Certifikat(er), @Admin)";
-        private string deleteSql = "";
+        private string deleteSql = "DELETE FROM Medlem WHERE Medlem_Nr = @MedlemID";
         private string queryStringFromID = "SELECT * from Medlem WHERE Medlem_Nr = @MedlemID";
 
         public MedlemService (IConfiguration configuration) : base(configuration)
@@ -53,12 +53,38 @@ namespace Projekt_Jordnaer.Services
             return false;
         }
 
-        public Task<Medlem> DeleteMemberAsync(int memberID)
+        public async Task<Medlem> DeleteMemberAsync(int memberID)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(deleteSql, connection))
+                {
+                    command.Parameters.AddWithValue("@MedlemID", memberID);
+                    try
+                    {
+                        Medlem deleteMember = await GetMemberFromIDAsync(memberID);
+                        command.Connection.Open();
+                        int noOfRows = await command.ExecuteNonQueryAsync();
+                        if (noOfRows == 1)
+                        {
+                            return deleteMember;
+                        }
+                        return null;
+                    }
+                    catch (SqlException sqlex)
+                    {
+                        Console.WriteLine("Database error");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Generel error");
+                    }
+                }
+            }
+            return null;
         }
 
-        public Task<List<Medlem>> GetAllMembersAsync()
+        public async Task<List<Medlem>> GetAllMembersAsync()
         {
             throw new NotImplementedException();
             //    List<Medlem> medlemmer = new List<Medlem>();
@@ -116,12 +142,12 @@ namespace Projekt_Jordnaer.Services
             //    return medlemmer;
         }
 
-        public Task<Medlem> GetMemberByNameAsync(string name)
+        public async Task<Medlem> GetMemberByNameAsync(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Medlem> GetMemberFromIDAsync(int memberID)
+        public async Task<Medlem> GetMemberFromIDAsync(int memberID)
         {
             throw new NotImplementedException();
             //    using (SqlConnection connection = new SqlConnection(connectionString))
@@ -163,12 +189,12 @@ namespace Projekt_Jordnaer.Services
             //    return null;
         }
 
-        public Task<List<Medlem>> GetMembersByNameAsync(string name)
+        public async Task<List<Medlem>> GetMembersByNameAsync(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateMemberAsync(Medlem medlem, int memberID)
+        public async Task<bool> UpdateMemberAsync(Medlem medlem, int memberID)
         {
             throw new NotImplementedException();
         }

@@ -1,48 +1,40 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Hosting;
+using Projekt_Jordnaer.Interfaces;
+using Projekt_Jordnaer.Models;
+using System.Drawing;
 
 namespace Projekt_Jordnaer.Pages.Medlemmer
 {
     public class DeleteMemberModel : PageModel
     {
-            //[BindProperty]
+        [BindProperty]
 
-        //    public Hotel HotelToDelete { get; set; }
+        public Medlem MemberToDelete { get; set; }
 
-        //    private IHotelService _hotelService { get; set; }
+        private IMedlemService _mService { get; set; }
 
-        //    public DeleteModel(IHotelService hotelService)
-        //    {
-        //        _hotelService = hotelService;
-        //    }
+        public DeleteMemberModel(IMedlemService mService)
+        {
+                _mService = mService;
+        }
 
-        //    public async Task OnGetAsync(int hotelnr)
-        //    {
-        //        HotelToDelete = await _hotelService.GetHotelFromIdAsync(hotelnr);
-        //    }
+        public async Task OnGetAsync(int memberID)
+        { 
+            MemberToDelete = await _mService.DeleteMemberAsync(memberID);
+        }
 
-        //    public async Task<IActionResult> OnPostAsync(int hotelnr)
-        //    {
-        //        HotelToDelete = await _hotelService.DeleteHotelAsync(hotelnr);
-        //        return RedirectToPage("GetAllHotels");
+        public async Task<IActionResult> OnPostAsync(int memberID)
+        {
+            MemberToDelete = await _mService.UpdateMemberAsync(memberID);
+            return RedirectToPage("GetAllMembers");
+        }
 
-        //        //bool ok = await _hotelService.UpdateHotelAsync(HotelToDelete, hotelnr);
-
-        //        //if (ok)
-        //        //{
-        //        //    return RedirectToPage("GetAllHotels");
-        //        //}
-        //        //else
-        //        //    return Page();
-        //    }
-
-        //    public async Task<IActionResult> OnPostCancel(int hotelnr)
-        //    {
-        //        return RedirectToPage("GetAllHotels");
-        //    }
-        
-        //public void OnGet()
-        //{
-        //}
+        public async Task<IActionResult> OnPostCancel(int memberID)
+        {
+              return RedirectToPage("GetAllMembers");
+        }
     }
 }
