@@ -8,7 +8,7 @@ namespace Projekt_Jordnaer.Services
 {
     public class MedlemService : Connection, IMedlemService 
 	{
-        private string queryString = "SELECT * from Medlem";
+        private string queryString = "SELECT * from Medlemmer";
         private string insertSql = "INSERT INTO Medlem Values (@MedlemID, @Navn, @Adresse, @Email, @Telefon nr., @Certifikat(er), @Admin)";
         private string deleteSql = "";
         private string queryStringFromID = "SELECT * from Medlem WHERE Medlem_Nr = @MedlemID";
@@ -80,6 +80,23 @@ namespace Projekt_Jordnaer.Services
             //                    String memberCert = reader.GetString(5);
             //                    //bool memberAdmin = reader. hvordan bool = true eller false
 
+                            Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
+                            medlemmer.Add(medlem);
+                        }
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        Console.WriteLine("Database error " + sqlEx.Message);
+                        return null;
+                    }
+                    catch (Exception exp)
+                    {
+                        Console.WriteLine("Generel fejl" + exp.Message);
+                        return null;
+                    }
+                }
+            }
+            return medlem;
             //                    Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
             //                    medlemmer.Add(medlem);
             //                }
