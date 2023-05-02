@@ -28,7 +28,7 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
 
         public async Task<IActionResult> OnPostAsync(int memberID)
         {
-            //MemberToDelete = await _mService.UpdateMemberAsync(memberID);
+            //await _mService.UpdateMemberAsync(memberID);
             return RedirectToPage("GetAllMembers");
         }
 
