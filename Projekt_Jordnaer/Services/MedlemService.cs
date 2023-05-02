@@ -31,7 +31,7 @@ namespace Projekt_Jordnaer.Services
                     command.Parameters.AddWithValue("@Email", medlem.Email);
                     command.Parameters.AddWithValue("@Telefon nr.", medlem.PhoneNr);
                     command.Parameters.AddWithValue("@Certifikat(er)", medlem.Certificate);
-                    //command.Parameters.AddWithValue("@Admin", medlem.Admin); //anderledes hvis bool?
+                    //command.Parameters.AddWithValue("@Admin", medlem.Admin); //bit i stedet for bool
                     try
                     {
                         command.Connection.Open();
@@ -144,13 +144,12 @@ namespace Projekt_Jordnaer.Services
                         SqlDataReader reader = await commmand.ExecuteReaderAsync();
                         if (await reader.ReadAsync())
                         {
-                           // int memberID = reader.GetInt32(0);
                             String memberName = reader.GetString(1);
                             String memberAddress = reader.GetString(2);
                             String memberEmail = reader.GetString(3);
                             String memberPhoneNr = reader.GetString(4);
                             String memberCert = reader.GetString(5);
-                            //bool memberAdmin = reader. hvordan bool = true eller false
+                            //bit memberAdmin = reader. hvordan bool = true eller false
 
                             Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
                             return medlem;
@@ -211,6 +210,5 @@ namespace Projekt_Jordnaer.Services
             }
             return false;
         }
-    
     }
 }
