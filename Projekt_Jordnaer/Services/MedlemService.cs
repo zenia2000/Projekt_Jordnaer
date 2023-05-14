@@ -208,7 +208,7 @@ namespace Projekt_Jordnaer.Services
                 {
                     Console.WriteLine("Der skete en generel fejl! " + ex.Message);
                 }
-                return medlemmer;  //wth
+                //return medlemmer;  //wth
             }
             return null; //unreachable code??
 
