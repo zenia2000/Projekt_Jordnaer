@@ -23,9 +23,7 @@ namespace Projekt_Jordnaer.Interfaces
         //Opdater medlem, find ud af hvordan alt opdateres??
         Task<bool> UpdateMemberAsync(Medlem medlem, int memberID);
 
-        //Hent alle medlemmer i db ud fra navn
-        Task<List<Medlem>> GetMembersByNameAsync(string name);
-
-        //søg efter cert?
+        ////Hent alle medlemmer i db ud fra navn ligegyldigt??
+        //Task<List<Medlem>> GetMembersByNameAsync(string name);
     }
 }

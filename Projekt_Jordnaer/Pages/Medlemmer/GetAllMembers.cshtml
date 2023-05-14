@@ -1,4 +1,78 @@
 ﻿@page
 @model Projekt_Jordnaer.Pages.Medlemmer.GetAllMembersModel
 @{
+    ViewData["Title"] = "Oversigt over medlemmer";
 }
+<h1>Oversigt over medlemmer</h1>
+
+<form method="get">
+    Search <input type="text" asp-for="FilterCriteria" />
+    <input type="submit" value="Filter" />
+</form>
+
+<p>
+    <a asp-page="Create">Opret et nyt medlem</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Medlem ID
+            </th>
+            <th>
+                Navn
+            </th>
+            <th>
+                Adresse
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Telefon nr.
+            </th>
+            <th>
+                Certifikat
+            </th>
+            <th>
+                Admin
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Medlemmer.Count() != 0)
+        {
+            @foreach (var item in Model.Medlemmer)
+            {
+                <tr>
+                    <td>
+                        @item.MemberID
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Address
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.PhoneNr
+                    </td>
+                    <td>
+                        @item.Certificate
+                    </td>
+                    <td>
+                        @item.Admin
+                    </td>
+                    <td>
+                        <a asp-page="DeleteMember" asp-route-hotelnr="@item.MemberID">Delete</a>|
+                        <a asp-page="UpdateMember" asp-route-hotelnr="@item.MemberID">Update</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

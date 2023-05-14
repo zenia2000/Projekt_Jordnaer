@@ -9,11 +9,14 @@ namespace Projekt_Jordnaer.Services
 {
     public class MedlemService : Connection, IMedlemService 
 	{
-        private string queryString = "SELECT * from Medlem";
-        private string insertSql = "INSERT INTO Medlem Values (@MedlemID, @Navn, @Adresse, @Email, @Telefon nr., @Certifikat(er), @Admin)";
-        private string deleteSql = "DELETE FROM Medlem WHERE Medlem_Nr = @MedlemID";
-        private string queryStringFromID = "SELECT * from Medlem WHERE Medlem_Nr = @MedlemID";
-        private string updateSql = "UPDATE Medlem " + "" + "" ;
+        private string insertMemberSql = "INSERT INTO Medlem Values (@MedlemID, @Navn, @Adresse, @Email, @Telefon nr., @Certifikat, @Admin)";
+        private string deleteMemberSql = "DELETE FROM Medlem WHERE Medlem_Nr = @MedlemID";
+        private string membersString = "SELECT * From Medlem";
+        private string updateMemberSql = "UPDATE Medlem " + 
+                                         "SET Medlem_Nr = @MedlemID, Navn = @Name, Adresse = @Adresse, Email = @Email, Telefon nr. = @Telefon nr, Certifikat = @Certifikat, Admin = @Admin"
+                                         + "WHERE Medlem_Nr = @MedlemID";
+        private string queryMemberName = "SELECT * FROM Medlem WHERE Name LIKE @Navn"; 
+        private string queryMemberFromID = "SELECT * from Medlem WHERE Medlem_Nr = @MedlemID";
 
         public MedlemService (IConfiguration configuration) : base(configuration)
         {
@@ -23,15 +26,15 @@ namespace Projekt_Jordnaer.Services
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand(insertSql, connection))
+                using (SqlCommand command = new SqlCommand(insertMemberSql, connection))
                 {
                     command.Parameters.AddWithValue("@MedlemID", medlem.MemberID);
                     command.Parameters.AddWithValue("@Navn", medlem.Name);
                     command.Parameters.AddWithValue("@Adresse", medlem.Address);
                     command.Parameters.AddWithValue("@Email", medlem.Email);
                     command.Parameters.AddWithValue("@Telefon nr.", medlem.PhoneNr);
-                    command.Parameters.AddWithValue("@Certifikat(er)", medlem.Certificate);
-                    //command.Parameters.AddWithValue("@Admin", medlem.Admin); //bit i stedet for bool
+                    command.Parameters.AddWithValue("@Certifikat", medlem.Certificate);
+                    command.Parameters.AddWithValue("@Admin", medlem.Admin);
                     try
                     {
                         command.Connection.Open();
@@ -59,7 +62,7 @@ namespace Projekt_Jordnaer.Services
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand(deleteSql, connection))
+                using (SqlCommand command = new SqlCommand(deleteMemberSql, connection))
                 {
                     command.Parameters.AddWithValue("@MedlemID", memberID);
                     try
@@ -91,7 +94,7 @@ namespace Projekt_Jordnaer.Services
             List<Medlem> medlemmer = new List<Medlem>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand(queryString, connection))
+                using (SqlCommand command = new SqlCommand(membersString, connection))
                 {
                     try
                     {
@@ -104,10 +107,10 @@ namespace Projekt_Jordnaer.Services
                             String memberAddress = reader.GetString(2);
                             String memberEmail = reader.GetString(3);
                             String memberPhoneNr = reader.GetString(4);
-                            String memberCert = reader.GetString(5);
-                            //bool memberAdmin = reader. hvordan bool = true eller false
+                            bool memberCert = reader.GetBoolean(5);
+                            bool memberAdmin = reader.GetBoolean(6);
 
-                            Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
+                            Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert, memberAdmin);
                             medlemmer.Add(medlem);
                         }
                     }
@@ -126,72 +129,23 @@ namespace Projekt_Jordnaer.Services
             return medlemmer;
         }
 
-        public async Task<Medlem> GetMemberByNameAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Medlem> GetMemberFromIDAsync(int memberID)
-        {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    try
-                    {
-                        SqlCommand commmand = new SqlCommand(queryStringFromID, connection);
-                        commmand.Parameters.AddWithValue("@MedlemID", memberID);
-                        await commmand.Connection.OpenAsync();
-
-                        SqlDataReader reader = await commmand.ExecuteReaderAsync();
-                        if (await reader.ReadAsync())
-                        {
-                            String memberName = reader.GetString(1);
-                            String memberAddress = reader.GetString(2);
-                            String memberEmail = reader.GetString(3);
-                            String memberPhoneNr = reader.GetString(4);
-                            String memberCert = reader.GetString(5);
-                            //bit memberAdmin = reader. hvordan bool = true eller false
-
-                            Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert);
-                            return medlem;
-                        }
-                    }
-                    catch (SqlException sqlEx)
-                    {
-                        Console.WriteLine("Database error " + sqlEx.Message);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Generel fejl " + ex.Message);
-                    }
-                    finally
-                    {
-
-                    }
-                }
-                return null;
-            }
-
-        public async Task<List<Medlem>> GetMembersByNameAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<bool> UpdateMemberAsync(Medlem medlem, int memberID)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand(updateSql, connection))
+                using (SqlCommand command = new SqlCommand(updateMemberSql, connection))
                 {
                     command.Parameters.AddWithValue("@MedlemID", medlem.MemberID);
                     command.Parameters.AddWithValue("@Navn", medlem.Name);
                     command.Parameters.AddWithValue("@Adresse", medlem.Address);
                     command.Parameters.AddWithValue("@Email", medlem.Email);
                     command.Parameters.AddWithValue("@Telefon nr.", medlem.PhoneNr);
-                    command.Parameters.AddWithValue("@Certifikat(er)", medlem.Certificate);
+                    command.Parameters.AddWithValue("@Certifikat", medlem.Certificate);
+                    command.Parameters.AddWithValue("@Admin", medlem.Admin);
                     try
                     {
                         command.Connection.Open();
-                        int noOfRows = await command.ExecuteNonQueryAsync(); 
+                        int noOfRows = await command.ExecuteNonQueryAsync();
                         if (noOfRows == 1)
                         {
                             return true;
@@ -210,5 +164,94 @@ namespace Projekt_Jordnaer.Services
             }
             return false;
         }
+
+        public async Task<Medlem> GetMemberByNameAsync(string name)
+        {
+            List<Medlem> medlemmer = new List<Medlem>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(queryMemberName, connection);
+                    string nameMember = "%" + name + "%";
+                    command.Parameters.AddWithValue("@Navn", nameMember);
+                    command.Connection.Open();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (reader.Read())
+                    {
+                        int memberID = reader.GetInt32(0);
+                        String memberName = reader.GetString(1);
+                        String memberAddress = reader.GetString(2);
+                        String memberEmail = reader.GetString(3);
+                        String memberPhoneNr = reader.GetString(4);
+                        bool memberCert = reader.GetBoolean(5);
+                        bool memberAdmin = reader.GetBoolean(6);
+                        
+                        Medlem m = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert, memberAdmin);
+                        medlemmer.Add(m);
+
+                        //if (!reader.IsDBNull(3)) how?
+                        //{
+                        //    bool hotelVIP = reader.GetBoolean(3);
+                        //    hotel = new Hotel(hotelnr, hotelNavn, hotelAdresse, hotelType, hotelVIP);
+                        //}
+                        //else
+                        //    hotel = new Hotel(hotelnr, hotelNavn, hotelAdresse, hotelType);
+                        //hoteller.Add(hotel);
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("Der skete en database fejl! " + sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Der skete en generel fejl! " + ex.Message);
+                }
+                return medlemmer;  //wth
+            }
+            return null; //unreachable code??
+
+        }
+
+        public async Task<Medlem> GetMemberFromIDAsync(int memberID)
+        {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    try
+                    {
+                        SqlCommand commmand = new SqlCommand(queryMemberFromID, connection);
+                        commmand.Parameters.AddWithValue("@MedlemID", memberID);
+                        await commmand.Connection.OpenAsync();
+
+                        SqlDataReader reader = await commmand.ExecuteReaderAsync();
+                        if (await reader.ReadAsync())
+                        {
+                            String memberName = reader.GetString(1);
+                            String memberAddress = reader.GetString(2);
+                            String memberEmail = reader.GetString(3);
+                            String memberPhoneNr = reader.GetString(4);
+                            bool memberCert = reader.GetBoolean(5);
+                            bool memberAdmin = reader.GetBoolean(6);
+
+                            Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert, memberAdmin);
+                            return medlem;
+                        }
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        Console.WriteLine("Database error " + sqlEx.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Generel fejl " + ex.Message);
+                    }
+                    finally
+                    {
+
+                    }
+                }
+                return null;
+            }
     }
 }

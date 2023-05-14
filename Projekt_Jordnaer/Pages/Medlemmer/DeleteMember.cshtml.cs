@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Hosting;
 using Projekt_Jordnaer.Interfaces;
 using Projekt_Jordnaer.Models;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 
 namespace Projekt_Jordnaer.Pages.Medlemmer
@@ -22,8 +23,8 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
         }
 
         public async Task OnGetAsync(int memberID)
-        { 
-            MemberToDelete = await _mService.DeleteMemberAsync(memberID);
+        {
+            //MemberToDelete = await _mService.GetMemberByIDAsync(memberID); issues her
         }
 
         public async Task<IActionResult> OnPostAsync(int memberID)
