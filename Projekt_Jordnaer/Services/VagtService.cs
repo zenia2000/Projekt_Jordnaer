@@ -7,11 +7,11 @@ namespace Projekt_Jordnaer.Services
 {
     public class VagtService : Connection, IVagtService
     {
-        private string queryString = "SELECT * From Vagter";
-        private string insertSql = "insert into Vagter Values(@Name, @Desc, @Start, @End)";
-        private string queryDelete = "delete from Vagter where VagtId=@ID";
-        private string queryStringFromID = "select * from Vagter where VagtId = @ID";
-
+        private string queryString = "SELECT * From Vagt";
+        private string insertSql = "insert into Vagt Values(@Name, @Desc, @Start, @End, @Type)";
+        private string queryDelete = "delete from Vagt where VagtId=@ID";
+        private string queryStringFromID = "select * from Vagt where VagtId = @ID";
+        private string updateSql = "Update Vagt Set VagtName = @Name, Description= @Desc, VagtStart = @Start, VagtEnd = @End, VagtTypeId = @Type, where VagtId = @ID";
         public VagtService(IConfiguration configuration) : base(configuration)
         {
         }
@@ -21,11 +21,12 @@ namespace Projekt_Jordnaer.Services
             using SqlConnection connection = new SqlConnection(connectionString);
 
             using SqlCommand command = new SqlCommand(insertSql, connection);
-            
+
             command.Parameters.AddWithValue("@Name", vagt.VagtName);
             command.Parameters.AddWithValue("@Desc", vagt.VagtDescription);
             command.Parameters.AddWithValue("@Start", vagt.VagtStart);
             command.Parameters.AddWithValue("@End", vagt.VagtEnd);
+            command.Parameters.AddWithValue("@Type", vagt.VagtTypeId);
             try
             {
                 command.Connection.Open();
@@ -93,7 +94,8 @@ namespace Projekt_Jordnaer.Services
                             String VagtDesc = reader.GetString(2);
                             DateTime VagtStart = reader.GetDateTime(3);
                             DateTime VagtEnd = reader.GetDateTime(4);
-                            Vagt vagt = new Vagt(VagtName, VagtDesc, VagtStart, VagtEnd);
+                            VTypes VagtType = (VTypes)reader.GetInt32(5); //spørg poul
+                            Vagt vagt = new Vagt(VagtID, VagtName, VagtDesc, VagtStart, VagtEnd, VagtType);
                             vagter.Add(vagt);
                         }
                     }
@@ -133,7 +135,9 @@ namespace Projekt_Jordnaer.Services
                         String VagtDesc = reader.GetString(2);
                         DateTime VagtStart = reader.GetDateTime(3);
                         DateTime VagtEnd = reader.GetDateTime(4);
-                        Vagt vagt = new Vagt(VagtName, VagtDesc, VagtStart, VagtEnd);
+                        VTypes VagtType = (VTypes)reader.GetInt32(5); //spørg poul
+
+                        Vagt vagt = new Vagt(VagtID, VagtName, VagtDesc, VagtStart, VagtEnd, VagtType);
                         return vagt;
                     }
                 }
@@ -156,8 +160,39 @@ namespace Projekt_Jordnaer.Services
 
         public async Task<bool> UpdateVagtAsync(Vagt vagt, int id)
         {
-            throw new NotImplementedException();
-        }
-    }    
-}
+            using SqlConnection connection = new SqlConnection(connectionString);
+            {
+                using SqlCommand command = new SqlCommand(updateSql, connection);
+                {
 
+                    command.Parameters.AddWithValue("@ID", id);
+                    command.Parameters.AddWithValue("@Name", vagt.VagtName);
+                    command.Parameters.AddWithValue("@Desc", vagt.VagtDescription);
+                    command.Parameters.AddWithValue("@Start", vagt.VagtStart);
+                    command.Parameters.AddWithValue("@End", vagt.VagtEnd);
+                    command.Parameters.AddWithValue("@Type", vagt.VagtTypeId);
+                    try
+                    {
+                        command.Connection.Open();
+                        int noOfRows = await command.ExecuteNonQueryAsync(); //bruges ved update, delete, insert
+                        if (noOfRows == 1)
+                        {
+                            return true;
+                        }
+
+                        return false;
+                    }
+                    catch (SqlException sqlex)
+                    {
+                        Console.WriteLine("Database error");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Generel error");
+                    }
+                    return false;
+                }
+            }
+        }
+    }
+}

@@ -1,5 +1,17 @@
-﻿namespace Projekt_Jordnaer.Models
+﻿using System.ComponentModel.DataAnnotations;
+using static Projekt_Jordnaer.Models.Vagt;
+
+namespace Projekt_Jordnaer.Models
 {
+    //    public enum VagtType { Cafe, Cafeføl, Bager, Bagerføl}
+    public enum VTypes
+    {
+        Cafe = 0,
+        Cafeføl = 1,
+        Bager = 2,
+        Bagerføl = 3
+    }
+
     public class Vagt
     {
         
@@ -8,10 +20,26 @@
         private string vagtDescription;
         private DateTime vagtStart;
         private DateTime vagtEnd;
-        private enum vagtType { Cafe, Bager, Cafeføl, Bagerføl };
+        private VTypes vagtType;
+
+        [Required]
+        public virtual int VagtTypeId
+        {
+            get
+            {
+                return (int)this.vagtType;
+            }
+            set
+            {
+                vagtType = (VTypes)value;
+            }
+        }
+        //[EnumDataType(typeof(VTypes))]
+        //public VTypes VType { get; set; }
 
 
-        public static int count = 0;
+
+
         public int VagtId
         {
             get { return vagtId; }
@@ -42,27 +70,19 @@
             set { vagtEnd = value; }
         }
 
-        /*public Enum VagtType
-        {
-            get { return vagtType; }
-            set { vagtType = value; }
-        }
-        */
-
         public Vagt() 
         { }
-        public Vagt(string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd/*, Enum vagtType*/)
+        public Vagt(int vagtId, string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd, VTypes vTypes)
         {
-            vagtId = count++;
+            
             VagtId = vagtId;
             VagtName = vagtName;
             VagtDescription = vagtDescription;
             VagtStart = vagtStart;
             VagtEnd = vagtEnd;
-            //  VagtType = vagtType;
+            VagtTypeId = (int)vTypes;
 
         }
-
         public override string ToString()
         {
             return $"Id: {VagtId}, Navn: {VagtName}, Beskrivelse: {VagtDescription}, Varihed: {VagtStart} til {VagtEnd}, Type: ";
