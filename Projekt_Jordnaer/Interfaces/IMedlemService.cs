@@ -12,7 +12,7 @@ namespace Projekt_Jordnaer.Interfaces
         Task<Medlem> GetMemberFromIDAsync(int memberID);
 
         //Hent medlem ud fra navn fra db
-        Task<Medlem> GetMemberByNameAsync(string name);
+        Task<List<Medlem>> GetMemberByNameAsync(string name);
 
         //Tilføj medlem til db
         Task<bool> CreateMemberAsync(Medlem medlem);
@@ -22,8 +22,5 @@ namespace Projekt_Jordnaer.Interfaces
 
         //Opdater medlem, find ud af hvordan alt opdateres??
         Task<bool> UpdateMemberAsync(Medlem medlem, int memberID);
-
-        ////Hent alle medlemmer i db ud fra navn ligegyldigt??
-        //Task<List<Medlem>> GetMembersByNameAsync(string name);
     }
 }

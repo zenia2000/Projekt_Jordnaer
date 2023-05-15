@@ -29,7 +29,7 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
             {
                 if (!FilterCriteria.IsNullOrEmpty())
                 {
-                    //Medlemmer = await mService.GetMemberByNameAsync(FilterCriteria); why??
+                    Medlemmer = await mService.GetMemberByNameAsync(FilterCriteria);
                 }
                 else
                 {

@@ -165,13 +165,13 @@ namespace Projekt_Jordnaer.Services
             return false;
         }
 
-        public async Task<Medlem> GetMemberByNameAsync(string name)
+        public async Task<List<Medlem>> GetMemberByNameAsync(string name)
         {
-            List<Medlem> medlemmer = new List<Medlem>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
+                    List<Medlem> medlemmer = new List<Medlem>();
                     SqlCommand command = new SqlCommand(queryMemberName, connection);
                     string nameMember = "%" + name + "%";
                     command.Parameters.AddWithValue("@Navn", nameMember);
@@ -189,16 +189,8 @@ namespace Projekt_Jordnaer.Services
                         
                         Medlem m = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert, memberAdmin);
                         medlemmer.Add(m);
-
-                        //if (!reader.IsDBNull(3)) how?
-                        //{
-                        //    bool hotelVIP = reader.GetBoolean(3);
-                        //    hotel = new Hotel(hotelnr, hotelNavn, hotelAdresse, hotelType, hotelVIP);
-                        //}
-                        //else
-                        //    hotel = new Hotel(hotelnr, hotelNavn, hotelAdresse, hotelType);
-                        //hoteller.Add(hotel);
                     }
+                    return medlemmer;
                 }
                 catch (SqlException sqlEx)
                 {
@@ -208,10 +200,8 @@ namespace Projekt_Jordnaer.Services
                 {
                     Console.WriteLine("Der skete en generel fejl! " + ex.Message);
                 }
-                //return medlemmer;  //wth
             }
-            return null; //unreachable code??
-
+            return null; 
         }
 
         public async Task<Medlem> GetMemberFromIDAsync(int memberID)
