@@ -20,7 +20,7 @@ namespace Projekt_Jordnaer.Interfaces
         //Slet medlem fra db
         Task<Medlem> DeleteMemberAsync(int memberID);
 
-        //Opdater medlem, find ud af hvordan alt opdateres??
+        //Opdater medlem
         Task<bool> UpdateMemberAsync(Medlem medlem, int memberID);
     }
 }

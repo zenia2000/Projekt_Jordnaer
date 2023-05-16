@@ -24,12 +24,12 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
 
         public async Task OnGetAsync(int memberID)
         {
-            MemberToDelete = await _mService.GetMemberByIDAsync(memberID); 
+            MemberToDelete = await _mService.GetMemberFromIDAsync(memberID); 
         }
 
         public async Task<IActionResult> OnPostAsync(int memberID)
         {
-            await _mService.UpdateMemberAsync(memberID);
+            await _mService.UpdateMemberAsync(MemberToDelete, memberID);
             return RedirectToPage("GetAllMembers");
         }
 
