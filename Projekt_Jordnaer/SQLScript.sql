@@ -10,3 +10,16 @@ CREATE TABLE [dbo].[Vagt] (
     PRIMARY KEY CLUSTERED ([VagtID] ASC)
 );
 
+DROP TABLE [dbo].[Medlem]
+
+CREATE TABLE [dbo].[Medlem]
+(
+	[MedlemID] INT IDENTITY (1,1) NOT NULL UNIQUE, 
+    [Name] VARCHAR(80) NOT NULL, 
+    [Address] VARCHAR(100) NOT NULL, 
+    [Email] VARCHAR(80) NOT NULL, 
+    [Certificate] BIT NOT NULL, 
+    [Admin] BIT NOT NULL, 
+    PRIMARY KEY CLUSTERED ([MedlemID] ASC)
+)
+
