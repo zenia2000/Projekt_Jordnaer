@@ -9,9 +9,9 @@ namespace Projekt_Jordnaer.Services
     {
         private string queryString = "SELECT * From Vagt";
         private string insertSql = "insert into Vagt Values(@Name, @Desc, @Start, @End, @Type)";
-        private string queryDelete = "delete from Vagt where VagtId=@ID";
+        private string queryDelete = "delete from Vagt where VagtId = @ID";
         private string queryStringFromID = "select * from Vagt where VagtId = @ID";
-        private string updateSql = "Update Vagt Set VagtName = @Name, Description= @Desc, VagtStart = @Start, VagtEnd = @End, VagtTypeId = @Type, where VagtId = @ID";
+        private string updateSql = "Update Vagt Set VagtName = @Name, VagtDescription= @Desc, VagtStart = @Start, VagtEnd = @End, VagtType = @Type WHERE VagtId = @ID";
         public VagtService(IConfiguration configuration) : base(configuration)
         {
         }
@@ -26,7 +26,7 @@ namespace Projekt_Jordnaer.Services
             command.Parameters.AddWithValue("@Desc", vagt.VagtDescription);
             command.Parameters.AddWithValue("@Start", vagt.VagtStart);
             command.Parameters.AddWithValue("@End", vagt.VagtEnd);
-            command.Parameters.AddWithValue("@Type", vagt.VagtTypeId);
+            command.Parameters.AddWithValue("@Type", vagt.VagtTypeID);
             try
             {
                 command.Connection.Open();
@@ -158,19 +158,19 @@ namespace Projekt_Jordnaer.Services
 
         }
 
-        public async Task<bool> UpdateVagtAsync(Vagt vagt, int id)
+        public async Task<bool> UpdateVagtAsync(Vagt vagt, int VagtId)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             {
                 using SqlCommand command = new SqlCommand(updateSql, connection);
                 {
 
-                    command.Parameters.AddWithValue("@ID", id);
+                    command.Parameters.AddWithValue("@ID", VagtId);
                     command.Parameters.AddWithValue("@Name", vagt.VagtName);
                     command.Parameters.AddWithValue("@Desc", vagt.VagtDescription);
                     command.Parameters.AddWithValue("@Start", vagt.VagtStart);
                     command.Parameters.AddWithValue("@End", vagt.VagtEnd);
-                    command.Parameters.AddWithValue("@Type", vagt.VagtTypeId);
+                    command.Parameters.AddWithValue("@Type", vagt.VagtTypeID);
                     try
                     {
                         command.Connection.Open();

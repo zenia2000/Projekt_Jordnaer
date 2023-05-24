@@ -14,13 +14,13 @@ namespace Projekt_Jordnaer.Pages.Vagter
         {
             vService = vagtService;
         }
-        public async Task OnGetAsync(int vagtId)
+        public async Task OnGetAsync(int VagtId)
         {
-            Vagt = await vService.GetVagtFromIdAsync(vagtId);
+            Vagt = await vService.GetVagtFromIdAsync(VagtId);
         }
-        public async Task<IActionResult> OnPostAsync(Vagt vagt, int vagtId)
+        public async Task<IActionResult> OnPostAsync(Vagt vagt, int VagtId)
         {       
-            bool ok = await vService.UpdateVagtAsync(vagt, vagtId);
+            bool ok = await vService.UpdateVagtAsync(vagt, VagtId);
                 if (ok == true)
                     return RedirectToPage("ShowVagt");
                 else
