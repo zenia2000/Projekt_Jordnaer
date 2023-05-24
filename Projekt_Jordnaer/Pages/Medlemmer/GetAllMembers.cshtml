@@ -10,9 +10,12 @@
     <input type="submit" value="Filter" />
 </form>
 
-<p>
-    <a asp-page="Create">Opret et nyt medlem</a>
-</p>
+<form method="post">
+    <div class="form-group">
+        <input type="submit" value="Opret nyt medlem" asp-page-handler="Opret" class="btn btn-primary" style="background-color: green" />
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>

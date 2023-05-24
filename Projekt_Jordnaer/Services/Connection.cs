@@ -8,8 +8,8 @@
         public Connection(IConfiguration configuration)
         {
             Configuration = configuration;
-            connectionString = Configuration["ConnectionStrings:SarahConnection"];
-            //connectionString = Configuration["ConnectionStrings:JulieConnection"];
+            //connectionString = Configuration["ConnectionStrings:SarahConnection"];
+            connectionString = Configuration["ConnectionStrings:JulieConnection"];
         }
 
     }

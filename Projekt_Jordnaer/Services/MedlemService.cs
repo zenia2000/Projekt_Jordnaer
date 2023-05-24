@@ -9,14 +9,14 @@ namespace Projekt_Jordnaer.Services
 {
     public class MedlemService : Connection, IMedlemService 
 	{
-        private string insertMemberSql = "INSERT INTO Medlem Values (@MedlemID, @Navn, @Adresse, @Email, @Telefon nr., @Certifikat, @Admin)";
-        private string deleteMemberSql = "DELETE FROM Medlem WHERE Medlem_Nr = @MedlemID";
-        private string membersString = "SELECT * From Medlem";
+        private string insertMemberSql = "INSERT INTO Medlem Values (@MemberID, @Name, @Address, @Email, @PhoneNr, @Certificate, @Admin)";
+        private string deleteMemberSql = "DELETE FROM Medlem WHERE Medlem_Nr = @MemberID";
+        private string membersString = "SELECT * FROM Medlem";
         private string updateMemberSql = "UPDATE Medlem " + 
-                                         "SET Medlem_Nr = @MedlemID, Navn = @Name, Adresse = @Adresse, Email = @Email, Telefon nr. = @Telefon nr, Certifikat = @Certifikat, Admin = @Admin"
-                                         + "WHERE Medlem_Nr = @MedlemID";
-        private string queryMemberName = "SELECT * FROM Medlem WHERE Name LIKE @Navn"; 
-        private string queryMemberFromID = "SELECT * from Medlem WHERE Medlem_Nr = @MedlemID";
+                                         "SET Medlem_Nr = @MemberID, Navn = @Name, Adresse = @Address, Email = @Email, Telefon nr. = @PhoneNr, Certifikat = @Certificate, Admin = @Admin"
+                                         + "WHERE Medlem_Nr = @MemberID";
+        private string queryMemberName = "SELECT * FROM Medlem WHERE Navn LIKE @Name"; 
+        private string queryMemberFromID = "SELECT * FROM Medlem WHERE Medlem_Nr = @MemberID";
 
         public MedlemService (IConfiguration configuration) : base(configuration)
         {
@@ -28,12 +28,12 @@ namespace Projekt_Jordnaer.Services
             {
                 using (SqlCommand command = new SqlCommand(insertMemberSql, connection))
                 {
-                    command.Parameters.AddWithValue("@MedlemID", medlem.MemberID);
-                    command.Parameters.AddWithValue("@Navn", medlem.Name);
-                    command.Parameters.AddWithValue("@Adresse", medlem.Address);
+                    command.Parameters.AddWithValue("@MemberID", medlem.MemberID);
+                    command.Parameters.AddWithValue("@Name", medlem.Name);
+                    command.Parameters.AddWithValue("@Address", medlem.Address);
                     command.Parameters.AddWithValue("@Email", medlem.Email);
-                    command.Parameters.AddWithValue("@Telefon nr.", medlem.PhoneNr);
-                    command.Parameters.AddWithValue("@Certifikat", medlem.Certificate);
+                    command.Parameters.AddWithValue("@PhoneNr", medlem.PhoneNr);
+                    command.Parameters.AddWithValue("@Certificate", medlem.Certificate);
                     command.Parameters.AddWithValue("@Admin", medlem.Admin);
                     try
                     {
@@ -64,7 +64,7 @@ namespace Projekt_Jordnaer.Services
             {
                 using (SqlCommand command = new SqlCommand(deleteMemberSql, connection))
                 {
-                    command.Parameters.AddWithValue("@MedlemID", memberID);
+                    command.Parameters.AddWithValue("@MemberID", memberID);
                     try
                     {
                         Medlem deleteMember = await GetMemberFromIDAsync(memberID);
@@ -135,12 +135,12 @@ namespace Projekt_Jordnaer.Services
             {
                 using (SqlCommand command = new SqlCommand(updateMemberSql, connection))
                 {
-                    command.Parameters.AddWithValue("@MedlemID", medlem.MemberID);
-                    command.Parameters.AddWithValue("@Navn", medlem.Name);
-                    command.Parameters.AddWithValue("@Adresse", medlem.Address);
+                    command.Parameters.AddWithValue("@MemberID", medlem.MemberID);
+                    command.Parameters.AddWithValue("@Name", medlem.Name);
+                    command.Parameters.AddWithValue("@Address", medlem.Address);
                     command.Parameters.AddWithValue("@Email", medlem.Email);
-                    command.Parameters.AddWithValue("@Telefon nr.", medlem.PhoneNr);
-                    command.Parameters.AddWithValue("@Certifikat", medlem.Certificate);
+                    command.Parameters.AddWithValue("@PhoneNr", medlem.PhoneNr);
+                    command.Parameters.AddWithValue("@Certificate", medlem.Certificate);
                     command.Parameters.AddWithValue("@Admin", medlem.Admin);
                     try
                     {
@@ -174,7 +174,7 @@ namespace Projekt_Jordnaer.Services
                     List<Medlem> medlemmer = new List<Medlem>();
                     SqlCommand command = new SqlCommand(queryMemberName, connection);
                     string nameMember = "%" + name + "%";
-                    command.Parameters.AddWithValue("@Navn", nameMember);
+                    command.Parameters.AddWithValue("@Name", nameMember);
                     command.Connection.Open();
                     SqlDataReader reader = await command.ExecuteReaderAsync();
                     while (reader.Read())
@@ -211,7 +211,7 @@ namespace Projekt_Jordnaer.Services
                     try
                     {
                         SqlCommand commmand = new SqlCommand(queryMemberFromID, connection);
-                        commmand.Parameters.AddWithValue("@MedlemID", memberID);
+                        commmand.Parameters.AddWithValue("@MemberID", memberID);
                         await commmand.Connection.OpenAsync();
 
                         SqlDataReader reader = await commmand.ExecuteReaderAsync();

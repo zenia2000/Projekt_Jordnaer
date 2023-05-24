@@ -37,5 +37,10 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
                 }
 
             }
+
+            public async Task <IActionResult> OnPostOpret()
+            {
+                return RedirectToPage("CreateMember");
+            }
     }
 }
