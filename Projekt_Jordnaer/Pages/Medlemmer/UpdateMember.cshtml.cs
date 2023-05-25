@@ -38,5 +38,10 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
                 return Page();
             }
         }
+
+        public async Task<IActionResult> OnPostCancel()
+        {
+            return RedirectToPage("GetAllMembers");
+        }
     }
 }

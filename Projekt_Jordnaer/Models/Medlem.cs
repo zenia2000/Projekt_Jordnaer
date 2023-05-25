@@ -10,19 +10,52 @@
         private bool _certificate;
         private bool _admin;
 
-        public int MemberID { get; set; }
+        public int MemberID 
+        {
+            get { return _memberID; }
+            set { _memberID = value; }
+        }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
 
-        public string Address { get; set; }
+        public string Address
+        {
+            get { return _address; }
+            set { _address = value; }
+        }
 
-        public string Email { get; set; }
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; }
+        }
 
-        public string PhoneNr { get; set; }
+        public string PhoneNr
+        {
+            get { return _phoneNr; }
+            set { _phoneNr = value; }
+        }
 
-        public bool Certificate { get; set; } 
+        public bool Certificate
+        {
+            get { return _certificate; }
+            set { _certificate = value; }
+        }
 
-        public bool Admin { get; set; }
+        public bool Admin
+        {
+            get { return _admin; }
+            set { _admin = value; }
+        }
+
+        public Medlem()
+        {
+
+        }
 
         public Medlem(int memberID, string name, string address, string email, string phoneNr, bool certificate, bool admin)
         {
