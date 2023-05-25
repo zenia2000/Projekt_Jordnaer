@@ -217,6 +217,7 @@ namespace Projekt_Jordnaer.Services
                         SqlDataReader reader = await commmand.ExecuteReaderAsync();
                         if (await reader.ReadAsync())
                         {
+                            int MemberID = reader.GetInt32(0);
                             String memberName = reader.GetString(1);
                             String memberAddress = reader.GetString(2);
                             String memberEmail = reader.GetString(3);
@@ -224,7 +225,7 @@ namespace Projekt_Jordnaer.Services
                             bool memberCert = reader.GetBoolean(5);
                             bool memberAdmin = reader.GetBoolean(6);
 
-                            Medlem medlem = new Medlem(memberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert, memberAdmin);
+                            Medlem medlem = new Medlem(MemberID, memberName, memberAddress, memberEmail, memberPhoneNr, memberCert, memberAdmin);
                             return medlem;
                         }
                     }

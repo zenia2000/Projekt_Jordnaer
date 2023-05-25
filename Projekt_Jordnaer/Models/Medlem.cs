@@ -52,6 +52,11 @@
             set { _admin = value; }
         }
 
+        public Medlem()
+        {
+
+        }
+
         public Medlem(int memberID, string name, string address, string email, string phoneNr, bool certificate, bool admin)
         {
             _memberID = memberID;
