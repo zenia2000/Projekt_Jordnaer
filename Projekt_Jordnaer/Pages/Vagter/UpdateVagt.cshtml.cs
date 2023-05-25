@@ -10,10 +10,12 @@ namespace Projekt_Jordnaer.Pages.Vagter
         [BindProperty]
         public Vagt Vagt { get; set; }
         private IVagtService vService;
+        
         public UpdateVagtModel(IVagtService vagtService)
         {
             vService = vagtService;
         }
+        
         public async Task OnGetAsync(int VagtId)
         {
             Vagt = await vService.GetVagtFromIdAsync(VagtId);
