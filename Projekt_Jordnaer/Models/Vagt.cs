@@ -20,23 +20,10 @@ namespace Projekt_Jordnaer.Models
         private string vagtDescription;
         private DateTime vagtStart;
         private DateTime vagtEnd;
-        private VTypes vagtType;
+        private VTypes vagtTypeID;
 
-        [Required]
-        public virtual int VagtTypeId
-        {
-            get
-            {
-                return (int)this.vagtType;
-            }
-            set
-            {
-                vagtType = (VTypes)value;
-            }
-        }
-        //[EnumDataType(typeof(VTypes))]
-        //public VTypes VType { get; set; }
-
+        
+        
 
 
 
@@ -70,6 +57,15 @@ namespace Projekt_Jordnaer.Models
             set { vagtEnd = value; }
         }
 
+
+
+        [Required]
+        public virtual int VagtTypeID
+        {
+            get {return (int)vagtTypeID;}
+            set {vagtTypeID = (VTypes)value;}
+        }
+
         public Vagt() 
         { }
         public Vagt(int vagtId, string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd, VTypes vTypes)
@@ -80,7 +76,7 @@ namespace Projekt_Jordnaer.Models
             VagtDescription = vagtDescription;
             VagtStart = vagtStart;
             VagtEnd = vagtEnd;
-            VagtTypeId = (int)vTypes;
+            VagtTypeID = (int)vTypes;
 
         }
         public override string ToString()
