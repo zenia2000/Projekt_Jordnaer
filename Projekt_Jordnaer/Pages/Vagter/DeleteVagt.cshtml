@@ -1,0 +1,52 @@
+﻿@page
+@using Projekt_Jordnaer.Models
+@model Projekt_Jordnaer.Pages.Vagter.DeleteVagtModel
+@{
+}
+
+
+<h1>Fjernelse af Vagt</h1>
+
+<p>Vil du gerne fjerne denne vagt?</p>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+
+            <div class="form-group">
+                <label asp-for="@Model.Vagt.VagtId" class="control-label"></label>
+                <input asp-for="@Model.Vagt.VagtId" class="form-control" disabled />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Vagt.VagtName" class="control-label"></label>
+                <input asp-for="@Model.Vagt.VagtName" class="form-control" disabled />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Vagt.VagtDescription" class="control-label"></label>
+                <input asp-for="@Model.Vagt.VagtDescription" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Vagt.VagtStart" class="control-label"></label>
+                <input asp-for="@Model.Vagt.VagtStart" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Vagt.VagtEnd" class="control-label"></label>
+                <input asp-for="@Model.Vagt.VagtEnd" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Vagt.VagtTypeID" class="control-label"></label>
+                <select asp-for="@Model.Vagt.VagtTypeID" asp-items="Html.GetEnumSelectList<VTypes>()" class="form-control"disabled>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Fjern" class="btn btn-primary" style="background-color: green" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Annuler" asp-page-handler="Cancel" class="btn btn-primary" style="background-color: red" />
+            </div>
+        </form>
+    </div>
+</div>

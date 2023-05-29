@@ -1,0 +1,52 @@
+﻿@page
+@model Projekt_Jordnaer.Pages.Medlemmer.CreateMemberModel
+@{
+    ViewData["Title"] = "Tilføj medlem";
+}
+
+<h1>Tilføj medlem</h1>
+
+<h3>Her kan du tilføje et medlem</h3>
+<h4>Skriv alle oplysninger nedenunder</h4>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.MemberID" class="control-label"></label>
+                <input asp-for="@Model.Medlem.MemberID" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.Name" class="control-label"></label>
+                <input asp-for="@Model.Medlem.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.Address" class="control-label"></label>
+                <input asp-for="@Model.Medlem.Address" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.Email" class="control-label"></label>
+                <input asp-for="@Model.Medlem.Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.PhoneNr" class="control-label"></label>
+                <input asp-for="@Model.Medlem.PhoneNr" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.Certificate" class="control-label"></label>
+                <input asp-for="@Model.Medlem.Certificate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Medlem.Admin" class="control-label"></label>
+                <input asp-for="@Model.Medlem.Admin" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Tilføj medlem" class="btn btn-primary" style="background-color: green" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Annuller" asp-page-handler="Cancel" class="btn btn-primary" style="background-color: red" />
+            </div>
+        </form>
+    </div>
+</div>
+

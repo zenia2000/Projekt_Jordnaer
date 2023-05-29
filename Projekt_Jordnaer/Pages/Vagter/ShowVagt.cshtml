@@ -1,0 +1,86 @@
+﻿@page
+@model Projekt_Jordnaer.Pages.Vagter.ShowVagtModel
+@{
+    ViewData["Title"] = "Alle vagter";
+}
+ <form method="post">
+    <div class="form-group">
+         <input type="submit" value="Opret ny vagt" asp-page-handler="Opret" class="btn btn-primary" style="background-color: green" />
+    </div>
+</form>
+
+
+
+<div class="text-center">
+    <h2>
+        VagtPlan:
+    </h2>
+</div>
+
+
+<div class="" style="color: darkgreen">
+    <h3>    Vagt type:</h3>
+</div>
+
+
+<p> Cafe: 0 <br />
+    Cafeføl: 1 <br />
+    Bager: 2 <br />
+    Bagerføl: 3</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Reg Nr
+            </th>
+            <th>
+                Navn
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Vagt Start
+            </th>
+            <th>
+                Vagt Slut
+            </th>
+           <th>
+                Vagt Type
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+       
+        @if (Model.Vagts.Count() != 0)
+        {
+            @foreach (var item in Model.Vagts)
+            {
+                <tr>
+                    <td>
+                        @item.VagtId
+                    </td>
+                    <td>
+                        @item.VagtName
+                    </td>
+                    <td>
+                        @item.VagtDescription
+                    </td>
+                    <td>
+                        @item.VagtStart
+                    </td>
+                    <td>
+                        @item.VagtEnd
+                    </td>
+                    <td>
+                        @item.VagtTypeID
+                    </td>
+
+                    <td> <a asp-page="UpdateVagt" asp-route-vagtId="@item.VagtId">Redigér</a></td>
+                    <td> <a asp-page="DeleteVagt" asp-route-vagtId="@item.VagtId">Fjern</a></td> 
+                </tr>
+            }
+        }
+    </tbody>
+</table>

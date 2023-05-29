@@ -7,22 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Interfaces\**" />
-    <Compile Remove="Models\**" />
-    <Compile Remove="Services\**" />
-    <Content Remove="Interfaces\**" />
-    <Content Remove="Models\**" />
-    <Content Remove="Services\**" />
-    <EmbeddedResource Remove="Interfaces\**" />
-    <EmbeddedResource Remove="Models\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Interfaces\**" />
-    <None Remove="Models\**" />
-    <None Remove="Services\**" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
   </ItemGroup>
 
 </Project>
