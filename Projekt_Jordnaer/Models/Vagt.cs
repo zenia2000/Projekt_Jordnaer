@@ -21,7 +21,7 @@ namespace Projekt_Jordnaer.Models
         private DateTime vagtStart;
         private DateTime vagtEnd;
         private VTypes vagtTypeID;
-
+        private string employName;
         
         
 
@@ -66,9 +66,15 @@ namespace Projekt_Jordnaer.Models
             set {vagtTypeID = (VTypes)value;}
         }
 
+        public string EmployName
+        {
+            get { return employName; }
+            set { employName = value; }
+        }
+
         public Vagt() 
         { }
-        public Vagt(int vagtId, string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd, VTypes vTypes)
+        public Vagt(int vagtId, string vagtName, string vagtDescription, DateTime vagtStart, DateTime vagtEnd, VTypes vTypes, string employName)
         {
             
             VagtId = vagtId;
@@ -77,7 +83,7 @@ namespace Projekt_Jordnaer.Models
             VagtStart = vagtStart;
             VagtEnd = vagtEnd;
             VagtTypeID = (int)vTypes;
-
+            EmployName = employName;
         }
         public override string ToString()
         {

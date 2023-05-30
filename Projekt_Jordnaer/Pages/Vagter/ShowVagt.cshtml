@@ -49,6 +49,9 @@
            <th>
                 Vagt Type
             </th>
+            <th>
+                Ansvarligt medlem 
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -77,6 +80,9 @@
                         @item.VagtTypeID
                     </td>
 
+                    <td>
+                        @item.EmployName
+                    </td>
                     <td> <a asp-page="UpdateVagt" asp-route-vagtId="@item.VagtId">Redigér</a></td>
                     <td> <a asp-page="DeleteVagt" asp-route-vagtId="@item.VagtId">Fjern</a></td> 
                 </tr>

@@ -8,10 +8,10 @@ namespace Projekt_Jordnaer.Services
     public class VagtService : Connection, IVagtService
     {
         private string queryString = "SELECT * From Vagt";
-        private string insertSql = "insert into Vagt Values(@Name, @Desc, @Start, @End, @Type)";
+        private string insertSql = "insert into Vagt Values(@Name, @Desc, @Start, @End, @Type, @Employ)";
         private string queryDelete = "delete from Vagt where VagtId = @ID";
         private string queryStringFromID = "select * from Vagt where VagtId = @ID";
-        private string updateSql = "Update Vagt Set VagtName = @Name, VagtDescription= @Desc, VagtStart = @Start, VagtEnd = @End, VagtType = @Type WHERE VagtId = @ID";
+        private string updateSql = "Update Vagt Set VagtName = @Name, VagtDescription= @Desc, VagtStart = @Start, VagtEnd = @End, VagtType = @Type, EmployName = @Employ WHERE VagtId = @ID";
         public VagtService(IConfiguration configuration) : base(configuration)
         {
         }
@@ -27,6 +27,7 @@ namespace Projekt_Jordnaer.Services
             command.Parameters.AddWithValue("@Start", vagt.VagtStart);
             command.Parameters.AddWithValue("@End", vagt.VagtEnd);
             command.Parameters.AddWithValue("@Type", vagt.VagtTypeID);
+            command.Parameters.AddWithValue("@Employ", vagt.EmployName);
             try
             {
                 command.Connection.Open();
@@ -94,8 +95,10 @@ namespace Projekt_Jordnaer.Services
                             String VagtDesc = reader.GetString(2);
                             DateTime VagtStart = reader.GetDateTime(3);
                             DateTime VagtEnd = reader.GetDateTime(4);
-                            VTypes VagtType = (VTypes)reader.GetInt32(5); //spørg poul
-                            Vagt vagt = new Vagt(VagtID, VagtName, VagtDesc, VagtStart, VagtEnd, VagtType);
+                            VTypes VagtType = (VTypes)reader.GetInt32(5);
+                            String EmployName = reader.GetString(6);
+
+                            Vagt vagt = new Vagt(VagtID, VagtName, VagtDesc, VagtStart, VagtEnd, VagtType, EmployName);
                             vagter.Add(vagt);
                         }
                     }
@@ -136,8 +139,9 @@ namespace Projekt_Jordnaer.Services
                         DateTime VagtStart = reader.GetDateTime(3);
                         DateTime VagtEnd = reader.GetDateTime(4);
                         VTypes VagtType = (VTypes)reader.GetInt32(5); //spørg poul
+                        String EmployName = reader.GetString(6);
 
-                        Vagt vagt = new Vagt(VagtID, VagtName, VagtDesc, VagtStart, VagtEnd, VagtType);
+                        Vagt vagt = new Vagt(VagtID, VagtName, VagtDesc, VagtStart, VagtEnd, VagtType, EmployName);
                         return vagt;
                     }
                 }
@@ -171,6 +175,7 @@ namespace Projekt_Jordnaer.Services
                     command.Parameters.AddWithValue("@Start", vagt.VagtStart);
                     command.Parameters.AddWithValue("@End", vagt.VagtEnd);
                     command.Parameters.AddWithValue("@Type", vagt.VagtTypeID);
+                    command.Parameters.AddWithValue("@Employ", vagt.EmployName);
                     try
                     {
                         command.Connection.Open();
