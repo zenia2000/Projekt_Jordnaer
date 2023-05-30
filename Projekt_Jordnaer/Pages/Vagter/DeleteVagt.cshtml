@@ -1,4 +1,5 @@
 ﻿@page
+@using Projekt_Jordnaer.Models
 @model Projekt_Jordnaer.Pages.Vagter.DeleteVagtModel
 @{
 }
@@ -37,7 +38,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Vagt.VagtTypeID" class="control-label"></label>
-                <input asp-for="@Model.Vagt.VagtTypeID" class="form-control" disabled />
+                <select asp-for="@Model.Vagt.VagtTypeID" asp-items="Html.GetEnumSelectList<VTypes>()" class="form-control"disabled>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Fjern" class="btn btn-primary" style="background-color: green" />
