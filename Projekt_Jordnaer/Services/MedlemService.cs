@@ -9,14 +9,14 @@ namespace Projekt_Jordnaer.Services
 {
     public class MedlemService : Connection, IMedlemService 
 	{
-        private string insertMemberSql = "INSERT INTO Medlem Values (@MemberID, @Name, @Address, @Email, @PhoneNr, @Certificate, @Admin)";
-        private string deleteMemberSql = "DELETE FROM Medlem WHERE Medlem_Nr = @MemberID";
+        private string insertMemberSql = "INSERT INTO Medlem Values (@Name, @Address, @Email, @PhoneNr, @Certificate, @Admin)";
+        private string deleteMemberSql = "DELETE FROM Medlem WHERE MemberID = @MemberID";
         private string membersString = "SELECT * FROM Medlem";
         private string updateMemberSql = "UPDATE Medlem " + 
-                                         "SET Medlem_Nr = @MemberID, Navn = @Name, Adresse = @Address, Email = @Email, Telefon nr. = @PhoneNr, Certifikat = @Certificate, Admin = @Admin"
-                                         + "WHERE Medlem_Nr = @MemberID";
+                                         "SET MemberID = @MemberID, Navn = @Name, Adresse = @Address, Email = @Email, Telefon nr. = @PhoneNr, Certifikat = @Certificate, Admin = @Admin"
+                                         + "WHERE MemberID = @MemberID";
         private string queryMemberName = "SELECT * FROM Medlem WHERE Navn LIKE @Name"; 
-        private string queryMemberFromID = "SELECT * FROM Medlem WHERE Medlem_Nr = @MemberID";
+        private string queryMemberFromID = "SELECT * FROM Medlem WHERE MemberID = @MemberID";
 
         public MedlemService (IConfiguration configuration) : base(configuration)
         {
@@ -28,7 +28,6 @@ namespace Projekt_Jordnaer.Services
             {
                 using (SqlCommand command = new SqlCommand(insertMemberSql, connection))
                 {
-                    command.Parameters.AddWithValue("@MemberID", medlem.MemberID);
                     command.Parameters.AddWithValue("@Name", medlem.Name);
                     command.Parameters.AddWithValue("@Address", medlem.Address);
                     command.Parameters.AddWithValue("@Email", medlem.Email);
