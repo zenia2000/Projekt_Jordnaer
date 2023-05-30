@@ -29,7 +29,7 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
 
         public async Task<IActionResult> OnPostAsync(int memberID)
         {
-            await _mService.UpdateMemberAsync(MemberToDelete, memberID);
+            await _mService.DeleteMemberAsync(memberID);
             return RedirectToPage("GetAllMembers");
         }
 

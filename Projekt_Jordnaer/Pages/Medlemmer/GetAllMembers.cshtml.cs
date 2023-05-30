@@ -12,9 +12,7 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
 {
     public class GetAllMembersModel : PageModel
     {
-            [BindProperty(SupportsGet = true)]
-
-            public string FilterCriteria { get; set; }
+            [BindProperty]
 
             public List<Medlem> Medlemmer { get; set; }
 
@@ -27,15 +25,7 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
 
             public async Task OnGetAsync()
             {
-                if (!FilterCriteria.IsNullOrEmpty())
-                {
-                    Medlemmer = await mService.GetMemberByNameAsync(FilterCriteria);
-                }
-                else
-                {
                     Medlemmer = await mService.GetAllMembersAsync();
-                }
-
             }
 
             public async Task <IActionResult> OnPostOpret()

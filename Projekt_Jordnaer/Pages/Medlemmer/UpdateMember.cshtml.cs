@@ -26,10 +26,10 @@ namespace Projekt_Jordnaer.Pages.Medlemmer
             MemberToUpdate = await _mService.GetMemberFromIDAsync(memberID);
         }
 
-        public async Task<IActionResult> OnPost(int memberID)
+        public async Task<IActionResult> OnPost()
         {
-            bool ok = await _mService.UpdateMemberAsync(MemberToUpdate, memberID);
-            if (ok)
+            bool ok = await _mService.UpdateMemberAsync(MemberToUpdate, MemberToUpdate.MemberID);
+            if (ok == true)
             {
                 return RedirectToPage("GetAllMembers");
             }

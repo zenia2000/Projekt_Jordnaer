@@ -13,9 +13,9 @@ namespace Projekt_Jordnaer.Services
         private string deleteMemberSql = "DELETE FROM Medlem WHERE MemberID = @MemberID";
         private string membersString = "SELECT * FROM Medlem";
         private string updateMemberSql = "UPDATE Medlem " + 
-                                         "SET MemberID = @MemberID, Navn = @Name, Adresse = @Address, Email = @Email, Telefon nr. = @PhoneNr, Certifikat = @Certificate, Admin = @Admin"
-                                         + "WHERE MemberID = @MemberID";
-        private string queryMemberName = "SELECT * FROM Medlem WHERE Navn LIKE @Name"; 
+                                         "SET Name = @Name, Address = @Address, Email = @Email, PhoneNr = @PhoneNr, Certificate = @Certificate, Admin = @Admin"
+                                         + " WHERE MemberID = @MemberID";
+        private string queryMemberName = "SELECT * FROM Medlem WHERE Namw LIKE @Name"; 
         private string queryMemberFromID = "SELECT * FROM Medlem WHERE MemberID = @MemberID";
 
         public MedlemService (IConfiguration configuration) : base(configuration)
@@ -134,7 +134,7 @@ namespace Projekt_Jordnaer.Services
             {
                 using (SqlCommand command = new SqlCommand(updateMemberSql, connection))
                 {
-                    command.Parameters.AddWithValue("@MemberID", medlem.MemberID);
+                    command.Parameters.AddWithValue("@MemberID", memberID);
                     command.Parameters.AddWithValue("@Name", medlem.Name);
                     command.Parameters.AddWithValue("@Address", medlem.Address);
                     command.Parameters.AddWithValue("@Email", medlem.Email);
