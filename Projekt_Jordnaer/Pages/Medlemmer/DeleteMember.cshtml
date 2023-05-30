@@ -13,31 +13,31 @@
         <form method="post">
             <div class="form-group">
                 <label asp-for="@Model.MemberToDelete.MemberID" class="control-label"></label>
-                <input asp-for="@Model.MemberToDelete.MemberID" class="form-control" />
+                <input asp-for="@Model.MemberToDelete.MemberID" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.MemberToDelete.Name" class="control-label"></label>
-                <input asp-for="@Model.MemberToDelete.Name" class="form-control" />
+                <input asp-for="@Model.MemberToDelete.Name" class="form-control" disabled/>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.MemberToDelete.Address" class="control-label"></label>
-                <input asp-for="@Model.MemberToDelete.Address" class="form-control" />
+                <input asp-for="@Model.MemberToDelete.Address" class="form-control" disabled/>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.MemberToDelete.Email" class="control-label"></label>
-                <input asp-for="@Model.MemberToDelete.Email" class="form-control" />
+                <input asp-for="@Model.MemberToDelete.Email" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.MemberToDelete.PhoneNr" class="control-label"></label>
-                <input asp-for="@Model.MemberToDelete.PhoneNr" class="form-control" />
+                <input asp-for="@Model.MemberToDelete.PhoneNr" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.MemberToDelete.Certificate" class="control-label"></label>
-                <input asp-for="@Model.MemberToDelete.Certificate" class="form-control" />
+                <input type="checkbox" asp-for="@Model.MemberToDelete.Certificate" value="false" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.MemberToDelete.Admin" class="control-label"></label>
-                <input asp-for="@Model.MemberToDelete.Admin" class="form-control" />
+                <input type="checkbox" asp-for="@Model.MemberToDelete.Admin" value="false" disabled />
             </div>
             <div class="form-group">
                 <input type="submit" value="Slet medlem" class="btn btn-primary" style="background-color: green" />

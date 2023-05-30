@@ -10,8 +10,7 @@
     <div class="col-md-4">
         <form method="post">
             <div class="form-group">
-                <label asp-for="@Model.MemberToUpdate.MemberID" class="control-label"></label>
-                <input asp-for="@Model.MemberToUpdate.MemberID" class="form-control" />
+                <input asp-for="@Model.MemberToUpdate.MemberID" hidden class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.MemberToUpdate.Name" class="control-label"></label>
@@ -31,11 +30,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.MemberToUpdate.Certificate" class="control-label"></label>
-                <input asp-for="@Model.MemberToUpdate.Certificate" class="form-control" />
+                <input type="checkbox" asp-for="@Model.MemberToUpdate.Certificate" value="true" />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.MemberToUpdate.Admin" class="control-label"></label>
-                <input asp-for="@Model.MemberToUpdate.Admin" class="form-control" />
+                <input type="checkbox" asp-for="@Model.MemberToUpdate.Admin" value="true" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Opdater" class="btn btn-primary" style="background-color: green" />
