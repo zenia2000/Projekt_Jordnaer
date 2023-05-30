@@ -7,6 +7,7 @@ CREATE TABLE [dbo].[Vagt] (
     [VagtStart]       DATETIME      NOT NULL,
     [VagtEnd]         DATETIME      NOT NULL,
     [VagtType]        INT           NOT NULL,
+
     PRIMARY KEY CLUSTERED ([VagtID] ASC)
 );
 
